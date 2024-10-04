@@ -13,7 +13,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="../https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
@@ -58,7 +58,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="Criteria.html">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Create Criteria</span>
+                    <span>Set-Up Criteria</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -68,10 +68,21 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item active">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Set-up Criteria</span>
+                    <span>Criteria Maintenance</span>
                 </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Settings</h6>
+                        <a class="collapse-item" href="category.html">Category</a>
+                        <a class="collapse-item" href="version.html">Version</a>
+                        <a class="collapse-item" href="docu_source.html">Document Source</a>
+                        <a class="collapse-item" href="governance.html">Governance</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -312,18 +323,9 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Set-Up Criteria</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Create Criteria</h1>
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <div class="container mt-5">
-                                <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Select Governance Option
-                                      </button>
-                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#" onclick="selectGovernance('Core Governance')">Core Governance</a>
-                                        <a class="dropdown-item" href="#" onclick="selectGovernance('Essential Governance')">Essential Governance</a>
-                                      </div>                                  
-                                </div>
+                            <div class="container mt-5">                                                                   
                             </div>
                          </div>
                         </div>
@@ -337,48 +339,54 @@
                     <div class="row">
                     <form>
                     <div class="form-group">
-                        <label for="areaNo">Area No:</label>
-                        <input type="text" class="form-control" id="areaNo" placeholder="Enter Area No">
-                    </div>
-                    <div class="form-group">
-                        <label for="areaIndicators">Area Indicators:</label>
-                        <input type="text" class="form-control" id="areaIndicators" placeholder="Enter Area Indicators">
-                    </div>
-                    <div class="form-group">
-                        <label for="minRequirements">Minimum Requirements:</label>
-                        <input type="text" class="form-control" id="minRequirements" placeholder="Enter Minimum Requirements">
-                    </div>
-                    <div class="form-group">
-                        <label for="movs">MOVs/Documentary:</label>
-                        <input type="text" class="form-control" id="movs" placeholder="Enter MOVs/Documentary">
+                       
                     </div>
                    <!-- Save Criteria -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#criteriaModal">
-    Submit
-                    </button>
-  
-                    <!-- Modal -->
-                <div class="modal fade" id="criteriaModal" tabindex="-1" role="dialog" aria-labelledby="criteriaModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+             <!-- Button to open the modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+            <!-- The Modal --> 
+                <div class="modal fade" id="myModal">
+                     <div class="modal-dialog">
                         <div class="modal-content">
-                             <div class="modal-header">
-                                    <h5 class="modal-title" id="criteriaModalLabel">Criteria Saved</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                              </button>
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                        <h4 class="modal-title">Modal Title</h4>
+                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                  </div>
-                                    <div class="modal-body">
-                                <!-- You can add additional content here if needed -->
-                                            Criteria saved successfully!
-                                    </div>
-                                <div class="modal-footer">
-                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                         </div>
-                     </div>
+      
+                 <!-- Modal Body -->
+                 <div class="modal-body">
+                  <!-- Your modal content here -->
+                     <p>This is the modal body.</p>
+                    </div>
+      
+                 <!-- Modal Footer -->
+                <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#saveModal">Save</button>
                  </div>
-                </form>
+                </div>
+             </div>
+        </div>
+
+                <!-- The Save Modal -->
+                    <div class="modal fade" id="saveModal">
+                    <div class="modal-dialog">
+                     <div class="modal-content">
+                 <!-- Modal Header -->
+                      <div class="modal-header">
+                       <h4 class="modal-title">Save Successful</h4>
+                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+      
+                    <!-- Modal Body -->
+                 <div class="modal-body">
+                      <p>Saved successfully!</p>
+                    </div>
+               </div>
             </div>
+        </div>
            
                     <!-- Content Row -->
                     <div class="row">
