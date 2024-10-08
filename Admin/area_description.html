@@ -182,12 +182,13 @@
                     </ul>
                 </nav>
                 <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
+                <!--Header-->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Assign Area</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Area Description</h1>
                     </div>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
                     <table id="myTable" class="table table-striped">
                         <thead>
                             <tr>
@@ -202,25 +203,26 @@
                     </table>
                     <button id="add-row-btn" class="btn btn-primary">Add</button>
                     <button id="save-btn" class="btn btn-success">Save</button>
+                
                     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
                     <script>
                         $(document).ready(function() {
                             // Add row button click event
                             $('#add-row-btn').on('click', function() {
                                 var newRow = '<tr>';
-                                newRow += '<td><input type="number" min="0" class="form-control" /></td>';
+                                newRow += '<td><select class="form-control"><option>Option 1</option><option>Option 2</option><option>Option 3</option></select></td>';
                                 newRow += '<td><input type="text" class="form-control" /></td>';
                                 newRow += '<td><button class="btn btn-danger delete-btn">Delete</button></td>';
                                 newRow += '</tr>';
                                 $('#table-body').append(newRow);
                             });
-                        
+                
                             // Save button click event
                             $('#save-btn').on('click', function() {
                                 // TO DO: implement save functionality
                                 alert('Save button clicked!');
                             });
-                        
+                
                             // Delete button click event
                             $(document).on('click', '.delete-btn', function() {
                                 $(this).closest('tr').remove();
@@ -228,9 +230,7 @@
                         });
                     </script>
                 </div>
-            </div>
-        </div>
-    </div>
+               <!--End Page Content-->
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
