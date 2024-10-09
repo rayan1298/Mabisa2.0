@@ -82,7 +82,7 @@
                         <a class="collapse-item" href="area_indicator.html">Area Indicators</a>
                         <a class="collapse-item" href="min_req.html">Minimum Requirements</a>
                         <a class="collapse-item" href="sub_req.html">Sub-Requirements</a>
-                        <a class="collapse-item" href="category.html">Categorys</a>
+                        <a class="collapse-item" href="category.html">Category</a>
                         <a class="collapse-item" href="version.html">Version</a>
                         <a class="collapse-item" href="docu_source.html">Document Source</a>
                         <a class="collapse-item" href="governance.html">Governance</a>
@@ -326,11 +326,13 @@
                  <!-- Begin Page Content -->
                  <div class="container-fluid">
                     <div class="row">
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Criteria Versions</h1>
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    </div> 
-                </div>   
+                            <h1 class="h3 mb-0 text-gray-800">Criteria Versions</h1>
+                            <div class="d-sm-flex align-items-center">
+                              <button class="btn btn-success btn-sm" id="add-row">Add New Row</button>
+                              <button class="btn btn-primary btn-sm" id="save-table" style="margin-left: 5px;">Save Changes</button>
+                            </div>
+                          </div>
                     <table class="table">
                       <thead>
                         <tr>
@@ -343,83 +345,80 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>V1.0</td>
-                          <td>Criteria Version 1</td>
-                          <td>2024-2026</td>
-                          <td>
-                            <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" role="switch" id="toggle1">
-                            </div>
-                          </td>
-                          <td>
-                            <button class="btn btn-primary btn-sm" id="view1">View</button>
-                          </td>
-                          <td>
-                            <button class="btn btn-danger btn-sm" id="delete1">Delete</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>V1.1</td>
-                          <td>Criteria Version 1.1</td>
-                          <td>2026-2028</td>
-                          <td>
-                            <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" role="switch" id="toggle2">
-                            </div>
-                          </td>
-                          <td>
-                            <button class="btn btn-primary btn-sm" id="view2">View</button>
-                          </td>
-                          <td>
-                            <button class="btn btn-danger btn-sm" id="delete2">Delete</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>V1.2</td>
-                          <td>Criteria Version 1.2</td>
-                          <td>2028-2030</td>
-                          <td>
-                            <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" role="switch" id="toggle3">
-                            </div>
-                          </td>
-                          <td>
-                            <button class="btn btn-primary btn-sm" id="view3">View</button>
-                          </td>
-                          <td>
-                            <button class="btn btn-danger btn-sm" id="delete3">Delete</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>V1.3</td>
-                          <td>Criteria Version 1.3</td>
-                          <td>2030-2032</td>
-                          <td>
-                            <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" role="switch" id="toggle4">
-                            </div>
-                          </td>
-                          <td>
-                            <button class="btn btn-primary btn-sm" id="view4">View</button>
-                          </td>
-                          <td>
-                            <button class="btn btn-danger btn-sm" id="delete4">Delete</button>
-                          </td>
-                        </tr>
+                        <!-- existing table rows -->
                       </tbody>
                     </table>
                   
-                  <script>
-                         document.querySelectorAll('.btn-primary').forEach(button => {
-                         button.addEventListener('click', event => {
-                         // Get the row element
-                         const row = event.target.parentNode.parentNode;
-                            // Perform the view action (e.g., show a modal with details)
-                           console.log(`Viewing row ${row.rowIndex + 1}`);
-                            });
-                         });
-                  </script>
+                    <script>
+                      document.querySelectorAll('.btn-primary').forEach(button => {
+                        button.addEventListener('click', event => {
+                          const row = event.target.parentNode.parentNode;
+                          console.log(`Viewing row ${row.rowIndex + 1}`);
+                        });
+                      });
+                  
+                      document.querySelectorAll('.btn-danger').forEach(button => {
+                        button.addEventListener('click', event => {
+                          const row = event.target.parentNode.parentNode;
+                          row.remove();
+                        });
+                      });
+                  
+                      document.getElementById('add-row').addEventListener('click', () => {
+                        const tableBody = document.querySelector('tbody');
+                        const newRow = tableBody.insertRow();
+                        newRow.innerHTML = `
+                          <td><input type="text" placeholder="Version"></td>
+                          <td><input type="text" placeholder="Description"></td>
+                          <td><input type="text" placeholder="Year"></td>
+                          <td>
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" role="switch" id="toggle-new">
+                            </div>
+                          </td>
+                          <td>
+                            <button class="btn btn-primary btn-sm" id="view-new">View</button>
+                          </td>
+                          <td>
+                            <button class="btn btn-danger btn-sm" id="delete-new">Delete</button>
+                          </td>
+                        `;
+                      });
+                  
+                      document.addEventListener('click', event => {
+                        if (event.target.classList.contains('btn-danger')) {
+                          const row = event.target.parentNode.parentNode;
+                          row.remove();
+                        }
+                      });
+                  
+                      document.getElementById('save-table').addEventListener('click', () => {
+                        const tableBody = document.querySelector('tbody');
+                        const rows = tableBody.rows;
+                        const data = [];
+                  
+                        for (let i = 0; i < rows.length; i++) {
+                          const row = rows[i];
+                          const version = row.cells[0].querySelector('input').value;
+                          const description = row.cells[1].querySelector('input').value;
+                          const year = row.cells[2].querySelector('input').value;
+                          const activate = row.cells[3].querySelector('input').checked;
+                  
+                          data.push({
+                            version,
+                            description,
+                            year,
+                            activate
+                          });
+                        }
+                  
+                        // Save the data to local storage
+                        localStorage.setItem('tableData', JSON.stringify(data));
+                  
+                        console.log('Table data saved:', data);
+                      });
+                    </script>
+                  </div>
                     <!-- Content Row -->
                     <div class="row">
                        
