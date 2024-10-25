@@ -9,15 +9,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>MABISA - Admin</title>
+    <title>MABISA - Administrator</title>
 
     <!-- Custom fonts for this template-->
-    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <!-- Custom styles for this template-->
-    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -29,9 +28,9 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index_main.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon">
-                    <i><img src="../Logo.png" height="60 px"></i>
+                    <i><img src="Logo.png" height="60 px"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">MABISA</div>
             </a>
@@ -40,8 +39,8 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="../index_main.html">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -56,7 +55,7 @@
 
             <!-- Nav Item - Criteria -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="Criteria.html">
+                <a class="nav-link collapsed" href="Admin/Criteria.html">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Set-Up Criteria</span>
                 </a>
@@ -67,7 +66,7 @@
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item active">
+               <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
@@ -77,15 +76,15 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Settings</h6>
-                        <a class="collapse-item" href="area.html">Area</a>
-                        <a class="collapse-item" href="area_description.html">Area Description</a>
-                        <a class="collapse-item" href="area_indicator.html">Area Indicators</a>
-                        <a class="collapse-item" href="min_req.html">Minimum Requirements</a>
-                        <a class="collapse-item" href="sub_req.html">Sub-Requirements</a>
-                        <a class="collapse-item" href="category.html">Category</a>
-                        <a class="collapse-item" href="version.html">Version</a>
-                        <a class="collapse-item" href="docu_source.html">Document Source</a>
-                        <a class="collapse-item" href="governance.html">Governance</a>
+                        <a class="collapse-item" href="maintenance_area/main.php">Area</a>
+                        <a class="collapse-item" href="Admin/area_description.html">Area Description</a>
+                        <a class="collapse-item" href="Admin/area.html">Area Indicators</a>
+                        <a class="collapse-item" href="Admin/min_req.html">Minimum Requirements</a>
+                        <a class="collapse-item" href="Admin/sub_req.html">Sub-Requirements</a>
+                        <a class="collapse-item" href="Admin/category.html">Category</a>
+                        <a class="collapse-item" href="Admin/version.html">Version</a>
+                        <a class="collapse-item" href="Admin/docu_source.html">Document Source</a>
+                        <a class="collapse-item" href="Admin/governance.html">Governance</a>
                     </div>
                 </div>
             </li>
@@ -100,25 +99,25 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="Admin/bar_assessment.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Barangay Assessment</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="Admin/location.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Location</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="Admin/users.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Users</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="Admin/reports.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Generate Report</span></a>
             </li>
@@ -151,7 +150,13 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
@@ -237,7 +242,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="../img/undraw_profile_1.svg"
+                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
                                             alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
@@ -249,7 +254,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="../img/undraw_profile_2.svg"
+                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
                                             alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
@@ -261,7 +266,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="../img/undraw_profile_3.svg"
+                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
                                             alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
@@ -293,9 +298,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                                 <img class="img-profile rounded-circle"
-                                    src="../img/undraw_profile.svg">
+                                    src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -319,262 +324,230 @@
                                 </a>
                             </div>
                         </li>
+
                     </ul>
+
                 </nav>
                 <!-- End of Topbar -->
 
-                 <!-- Begin Page Content -->
-                 <div class="container-fluid">
-                    <div class="row">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Document Sources</h1>
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    </div> 
-                </div> 
-             <div class="container-fluid">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">Document</th>
-                      <th scope="col">Source</th>
-                      <th scope="col">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody id="table-body">
-                    <!-- Table rows will be added here -->
-                  </tbody>
-                </table>
-              
-                <!-- Button to trigger the add row modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRowModal">
-                  Add Document Source
-                </button>
-              
-                <!-- Add row modal -->
-                <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-labelledby="addRowModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="addRowModalLabel">Add</h5>
-                      </div>
-                      <div class="modal-body">
-                        <!-- Add new row form -->
-                        <form id="add-row-form">
-                          <div class="form-group">
-                            <label for="document">Document:</label>
-                            <input type="text" class="form-control" id="document" required>
-                            <div id="document-error" class="text-danger"></div>
-                          </div>
-                          <div class="form-group">
-                            <label for="source">Source:</label>
-                            <input type="text" class="form-control" id="source" required>
-                            <div id="source-error" class="text-danger"></div>
-                          </div>
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="add-row-btn">Add</button>
-                      </div>
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
-                  </div>
-                </div>
-              
-                <!-- Edit row modal -->
-                <div class="modal fade" id="editRowModal" tabindex="-1" role="dialog" aria-labelledby="editRowModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="editRowModalLabel">Edit Row</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <!-- Edit row form -->
-                        <form id="edit-row-form">
-                          <div class="form-group">
-                            <label for="edit-document">Document:</label>
-                            <input type="text" class="form-control" id="edit-document" required>
-                            <div id="edit-document-error" class="text-danger"></div>
-                          </div>
-                          <div class="form-group">
-                            <label for="edit-source">Source:</label>
-                            <input type="text" class="form-control" id="edit-source" required>
-                            <div id="edit-source-error" class="text-danger"></div>
-                          </div>
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="save-row-btn">Save Changes</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <script>
-                // Initialize variables
-                let rows = [];
-                let editRowIndex = null;
-              
-                // Function to add a new row
-                function addRow() {
-                  const documentName = document.getElementById('document').value.trim();
-                  const source = document.getElementById('source').value.trim();
-              
-                  if (documentName === '' || source === '') {
-                    if (documentName === '') {
-                      document.getElementById('document-error').innerHTML = 'Please enter a document name';
-                    } else {
-                      document.getElementById('document-error').innerHTML = '';
-                    }
-              
-                    if (source === '') {
-                      document.getElementById('source-error').innerHTML = 'Please enter a source';
-                    } else {
-                      document.getElementById('source-error').innerHTML = '';
-                    }
-                  } else {
-                    const newRow = { id: rows.length + 1, document: documentName, source };
-                    rows.push(newRow);
-                    renderTable();
-                    document.getElementById('add-row-form').reset();
-                    $('#addRowModal').modal('hide');
-                  }
-                }
-              
-                // Function to edit a row
-                function editRow(index) {
-                  editRowIndex = index;
-                  const row = rows[index];
-                  document.getElementById('edit-document').value = row.document;
-                  document.getElementById('edit-source').value = row.source;
-                  $('#editRowModal').modal('show');
-                }
-              
-                // Function to save changes to a row
-                function saveChanges() {
-                  const documentName = document.getElementById('edit-document').value.trim();
-                  const source = document.getElementById('edit-source').value.trim();
-              
-                  if (documentName === '' || source === '') {
-                    if (documentName === '') {
-                      document.getElementById('edit-document-error').innerHTML = 'Please enter a document name';
-                    } else {
-                      document.getElementById('edit-document-error').innerHTML = '';
-                    }
-              
-                    if (source === '') {
-                      document.getElementById('edit-source-error').innerHTML = 'Please enter a source';
-                    } else {
-                      document.getElementById('edit-source-error').innerHTML = '';
-                    }
-                  } else {
-                    rows[editRowIndex].document = documentName;
-                    rows[editRowIndex].source = source;
-                    renderTable();
-                    $('#editRowModal').modal('hide');
-                  }
-                }
-              
-                // Function to cancel editing a row
-                function cancelEdit() {
-                  $('#editRowModal').modal('hide');
-                }
-              
-                // Function to delete a row
-                function deleteRow(index) {
-                  rows.splice(index, 1);
-                  renderTable();
-                }
-              
-                // Function to render the table
-                function renderTable() {
-                  const tableBody = document.getElementById('table-body');
-                  tableBody.innerHTML = '';
-                  rows.forEach((row, index) => {
-                    const rowElement = document.createElement('tr');
-                    rowElement.innerHTML = `
-                      <td>${row.id}</td>
-                      <td>${row.document}</td>
-                      <td>${row.source}</td>
-                      <td>
-                        <button class="btn btn-primary btn-sm" onclick="editRow(${index})">Edit</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteRow(${index})">Delete</button>
-                      </td>
-                    `;
-                    tableBody.appendChild(rowElement);
-                  });
-                }
-              
-                // Add event listeners
-                document.getElementById('add-row-btn').addEventListener('click', (e) => {
-                  e.preventDefault();
-                  addRow();
-                });
-              
-                document.getElementById('add-row-form').addEventListener('submit', (e) => {
-                  e.preventDefault();
-                  addRow();
-                });
-              
-                document.getElementById('save-row-btn').addEventListener('click', (e) => {
-                  e.preventDefault();
-                  saveChanges();
-                });
-              
-                document.getElementById('cancel-edit').addEventListener('click', cancelEdit);
-              </script>
-          </div>
-                       
-                    <!-- Content Row -->
-                    <div class="row">
-              
-                     </div>
+
                     <!-- Content Row -->
                     <div class="row">
 
-
-                    </div>
-
-                             
-                    <!-- Content Row -->
-                    <div class="row">
-
+                        <!-- In progress Barangays -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Barangay In Progress</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
+                        <!-- Completed Barangay -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Completed Barangay</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   
+
+                        <!-- Registered Barangay -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Registered Barangay</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                
+                    <!-- Content Row -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Barangay Progress</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="myAreaChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
 
-                        
-                </div>
-                <!-- /.container-fluid -->
+                    <!-- Content Row -->
+                    <div class="row"></div>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Area Code</th>
+                            <th scope="col">Area Name</th>                   
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Financial Administration and Sustainability</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Disaster Preparedness</td>
+                           
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td colspan="2">Safety Peace and Order</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                        <!-- Content Column -->
+                        <div class="col-lg-6 mb-4">
 
+                        </div>
             </div>
+
+            <!-- History Logs -->
+             <div class="row">
+            <div class="card">
+                <div class="card-header">
+                  <h5 class="card-title">Logs</h5>
+                </div>
+                <div class="card-body">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">User  ID</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Action</th>
+                        <th scope="col">Date/Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>john.doe</td>
+                        <td>Logged in</td>
+                        <td>2024-03-01 14:30:00</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>jane.doe</td>
+                        <td>Viewed dashboard</td>
+                        <td>2024-03-01 14:35:00</td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>john.doe</td>
+                        <td>Updated profile</td>
+                        <td>2024-03-01 14:40:00</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>admin</td>
+                        <td>Deleted user</td>
+                        <td>2024-03-01 14:45:00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div> 
+            </div>
+
             <!-- End of Main Content -->
 
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; MABISA 2024</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="../vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="../js/demo/chart-area-demo.js"></script>
-    <script src="../js/demo/chart-pie-demo.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
-</body>
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 
