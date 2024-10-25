@@ -2,13 +2,11 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>MABISA - Admin</title>
 
     <!-- Custom fonts for this template-->
@@ -27,7 +25,6 @@
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.html">
                 <div class="sidebar-brand-icon">
@@ -60,10 +57,6 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Set-Up Criteria</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                    </div>
-                </div>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
@@ -143,7 +136,7 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <button id="sidebarToggleTop" class="btn btn -link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
 
@@ -151,25 +144,6 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -263,7 +237,7 @@
                                     <div class="dropdown-list-image mr-3">
                                         <img class="rounded-circle" src="../img/undraw_profile_3.svg"
                                             alt="...">
-                                        <div class="status-indicator bg-warning"></div>
+                                        <div class ="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
                                         <div class="text-truncate">Last month's report looks great, I am very happy with
@@ -323,141 +297,198 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                 <!-- Begin Page Content -->
-                 <div class="container-fluid">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
                     <div class="row">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">Criteria Versions</h1>
                             <div class="d-sm-flex align-items-center">
-                              <button class="btn btn-success btn-sm" id="add-row">Add New Row</button>
-                              <button class="btn btn-primary btn-sm" id="save-table" style="margin-left: 5px;">Save Changes</button>
+                                <button class="btn btn-success btn-sm" id="add-row">Add New Criteria Version</button>
                             </div>
-                          </div>
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">VERSION</th>
-                          <th scope="col">DESCRIPTION</th>
-                          <th scope="col">YEAR</th>
-                          <th scope="col">ACTIVATE</th>
-                          <th scope="col">VIEW</th>
-                          <th scope="col">DELETE</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <!-- existing table rows -->
-                      </tbody>
-                    </table>
-                  
-                    <script>
-                      document.querySelectorAll('.btn-primary').forEach(button => {
-                        button.addEventListener('click', event => {
-                          const row = event.target.parentNode.parentNode;
-                          console.log(`Viewing row ${row.rowIndex + 1}`);
-                        });
-                      });
-                  
-                      document.querySelectorAll('.btn-danger').forEach(button => {
-                        button.addEventListener('click', event => {
-                          const row = event.target.parentNode.parentNode;
-                          row.remove();
-                        });
-                      });
-                  
-                      document.getElementById('add-row').addEventListener('click', () => {
-                        const tableBody = document.querySelector('tbody');
-                        const newRow = tableBody.insertRow();
-                        newRow.innerHTML = `
-                          <td><input type="text" placeholder="Version"></td>
-                          <td><input type="text" placeholder="Description"></td>
-                          <td><input type="text" placeholder="Year"></td>
-                          <td>
-                            <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" role="switch" id="toggle-new">
-                            </div>
-                          </td>
-                          <td>
-                            <button class="btn btn-primary btn-sm" id="view-new">View</button>
-                          </td>
-                          <td>
-                            <button class="btn btn-danger btn-sm" id="delete-new">Delete</button>
-                          </td>
-                        `;
-                      });
-                  
-                      document.addEventListener('click', event => {
-                        if (event.target.classList.contains('btn-danger')) {
-                          const row = event.target.parentNode.parentNode;
-                          row.remove();
-                        }
-                      });
-                  
-                      document.getElementById('save-table').addEventListener('click', () => {
-                        const tableBody = document.querySelector('tbody');
-                        const rows = tableBody.rows;
-                        const data = [];
-                  
-                        for (let i = 0; i < rows.length; i++) {
-                          const row = rows[i];
-                          const version = row.cells[0].querySelector('input').value;
-                          const description = row.cells[1].querySelector('input').value;
-                          const year = row.cells[2].querySelector('input').value;
-                          const activate = row.cells[3].querySelector('input').checked;
-                  
-                          data.push({
-                            version,
-                            description,
-                            year,
-                            activate
-                          });
-                        }
-                  
-                        // Save the data to local storage
-                        localStorage.setItem('tableData', JSON.stringify(data));
-                  
-                        console.log('Table data saved:', data);
-                      });
-                    </script>
-                  </div>
-                    <!-- Content Row -->
-                    <div class="row">
-                       
-
-                             
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">VERSION</th>
+                                    <th scope="col">DESCRIPTION</th>
+                                    <th scope="col">YEAR</th>
+                                    <th scope="col">ACTIVATE</th>
+                                    <th scope="col">EDIT</th>
+                                    <th scope="col">DELETE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- existing table rows -->
+                            </tbody>
+                        </table>
                     </div>
 
-                
+                    <!-- Modal for Adding New Criteria Version -->
+                    <div class="modal" tabindex="-1" id="addModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add New Criteria Version</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="addForm">
+                                        <div class="mb-3">
+                                            <label for="addVersion" class="form-label">Version</label>
+                                            <input type="text" class="form-control" id="addVersion" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="addDescription" class="form-label">Description</label>
+                                            <input type="text" class="form-control" id="addDescription" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="addYear" class="form-label">Year</label>
+                                            <input type="text" class="form-control" id="addYear" required>
+                                        </div>
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input" id="addActivate">
+                                            <label class="form-check-label" for="addActivate">Activate</label>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" id="saveAdd">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                        
+                    <!-- Modal for Editing -->
+                    <div class="modal" tabindex="-1" id="editModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Edit Criteria Version</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="editForm">
+                                        <div class="mb-3">
+                                            <label for="editVersion" class="form-label">Version</label>
+                                            <input type="text" class="form-control" id="editVersion" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="editDescription" class="form-label">Description</label>
+                                            <input type="text" class="form-control" id="editDescription" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="editYear" class="form-label">Year</label>
+                                            <input type="text" class="form-control" id="editYear" required>
+                                        </div>
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input" id="editActivate">
+                                            <label class="form-check-label" for="editActivate">Activate</label>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="saveEdit">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        document.getElementById('add-row').addEventListener('click', () => {
+                            const modal = new bootstrap.Modal(document.getElementById('addModal'));
+                            modal.show();
+                        });
+
+                        document.getElementById('saveAdd').addEventListener('click', () => {
+                            const tableBody = document.querySelector('tbody');
+                            const newRow = tableBody.insertRow();
+                            newRow.innerHTML = `
+                                <td>${document.getElementById('addVersion').value}</td>
+                                <td>${document.getElementById('addDescription').value}</td>
+                                <td>${document.getElementById('addYear').value}</td>
+                                <td>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" ${document.getElementById('addActivate').checked ? 'checked' : ''}>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm edit-btn">Edit</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm delete-btn">Delete</button>
+                                </td>
+                            `;
+                            document.getElementById('addModal').querySelector('form').reset();
+                            const modal = new bootstrap.Modal(document.getElementById('addModal'));
+                            modal.hide();
+                        });
+
+                        document.addEventListener('click', event => {
+                            if (event.target.classList.contains('delete-btn')) {
+                                const row = event.target.closest('tr');
+                                row.remove();
+                            }
+
+                            if (event.target.classList.contains('edit-btn')) {
+                                const row = event.target.closest('tr');
+                                const version = row.cells[0].textContent;
+                                const description = row.cells[1].textContent;
+                                const year = row.cells[2].textContent;
+                                const activate = row.cells[3].querySelector('input').checked;
+
+                                // Populate modal fields
+                                document.getElementById('editVersion').value = version;
+                                document.getElementById('editDescription').value = description;
+                                document.getElementById('editYear').value = year;
+                                document.getElementById('editActivate').checked = activate;
+
+                                // Show the modal
+                                const modal = new bootstrap.Modal(document.getElementById('editModal'));
+                                modal.show();
+
+                                // Save the reference to the row being edited
+                                document.getElementById('saveEdit').onclick = () => {
+                                    // Update the row with the edited values
+                                    row.cells[0].textContent = document.getElementById('editVersion').value;
+                                    row.cells[1].textContent = document.getElementById('editDescription').value;
+                                    row.cells[2].textContent = document.getElementById('editYear').value;
+                                    row.cells[3].querySelector('input').checked = document.getElementById('editActivate').checked;
+
+                                    // Hide the modal after saving changes
+                                    modal.hide();
+                                };
+                            }
+                        });
+                    </script>
                 </div>
                 <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- Bootstrap core JavaScript-->
+            <script src="../vendor/jquery/jquery.min.js"></script>
+            <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+            <!-- Core plugin JavaScript-->
+            <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="../js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="../vendor/chart.js/Chart.min.js"></script>
+            <!-- Page level plugins -->
+            <script src="../vendor/chart.js/Chart.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="../js/demo/chart-area-demo.js"></script>
-    <script src="../js/demo/chart-pie-demo.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <!-- Page level custom scripts -->
+            <script src="../js/demo/chart-area-demo.js"></script>
+            <script src="../js/demo/chart-pie-demo.js"></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
-</body>
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
 
 </body>
 
