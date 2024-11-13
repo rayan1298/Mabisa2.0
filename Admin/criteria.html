@@ -335,59 +335,245 @@
                          </div>
                     </div> 
                     <!-- Content Row -->
-                        <div class="dropdown d-inline-block">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Version
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="#" onclick="updateVersion('Version 1.0')">Version 1.0</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="updateVersion('Version 2.0')">Version 2.0</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="updateVersion('Version 3.0')">Version 3.0</a></li>
-                            </ul>
-                        </div>
-                        <input type="text" id="versionInput" class="form-control d-inline-block" style="width: 200px;" readonly>
-                    
+                    <div class="dropdown d-inline-block fluid">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="width: 200px;">
+                            Version
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#" onclick="updateVersion('Version 1.0')">Version 1.0</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="updateVersion('Version 2.0')">Version 2.0</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="updateVersion('Version 3.0')">Version 3.0</a></li>
+                        </ul>
+                    </div>
+                    <input type="text" id="versionInput" class="form-control d-inline-block" style="width: 200px;" readonly>
                     
                     <script>
                         function updateVersion(selectedVersion) {
                             document.getElementById('versionInput').value = selectedVersion;
                         }
                     </script>
-                </div>
-                   <p>             </p>
-                   <div class="dropdown d-inline-block container">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="governanceDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        Governance
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="governanceDropdown">
-                        <li><a class="dropdown-item" href="#" onclick="updateGovernance('Governance 1')">Governance 1</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="updateGovernance('Governance 2')">Governance 2</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="updateGovernance('Governance 3')">Governance 3</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="updateGovernance('Governance 4')">Governance 4</a></li>
-                    </ul>
-                
-                <input type="text" id="governanceInput" class="form-control d-inline-block" style="width: 200px;" readonly>
-                
-                <script>
-                    function updateGovernance(selectedGovernance) {
-                        document.getElementById('governanceInput').value = selectedGovernance;
-                    }
-                </script>
-            </div>
+                    
+                    <div class="dropdown d-inline-block fluid">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="governanceDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="width: 200px;">
+                            Governance
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="governanceDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="updateGovernance('Governance 1')">Governance 1</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="updateGovernance('Governance 2')">Governance 2</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="updateGovernance('Governance 3')">Governance 3</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="updateGovernance('Governance 4')">Governance 4</a></li>
+                        </ul>
+                    </div>
+                    <input type="text" id="governanceInput" class="form-control d-inline-block" style="width: 200px;" readonly>
+                    
+                    <script>
+                        function updateGovernance(selectedGovernance) {
+                            document.getElementById('governanceInput').value = selectedGovernance;
+                        }
+                    </script>
 
                     <!-- Content Row -->
-                    <div class="row">
-
-                        
+                    <script>
+                        function toggleSubRequirement(select, row) {
+                            const subRequirementCell = row.querySelector('.sub-requirement-cell');
+                            if (select.value !== '') {
+                                // Create a select element for sub-requirements
+                                subRequirementCell.innerHTML = `
+                                    <select class="form-select" placeholder="Select Sub-requirement">
+                                        <option value="">Select Sub-requirement</option>
+                                        <option value="sub-option1">Sub Option 1</option>
+                                        <option value="sub-option2">Sub Option 2</option>
+                                        <option value="sub-option3">Sub Option 3</option>
+                                    </select>`;
+                            } else {
+                                subRequirementCell.innerHTML = '';
+                            }
+                        }
+                
+                        function addSubRequirementColumn() {
+                            const table = document.querySelector('.table');
+                            const thead = table.querySelector('thead tr');
+                            const tbody = table.querySelector('tbody');
+                
+                        }
+                
+                        function addRow() {
+                            const table = document.querySelector('.table tbody');
+                            const newRow = document.createElement('tr');
+                            newRow.innerHTML = `
+                                <td>New Row, Cell 1</td>
+                                <td>New Row, Cell 2</td>
+                                <td>
+                                    <select class="form-select" name="requirementNew" onchange="toggleSubRequirement(this, this.closest('tr'))">
+                                        <option value="">Select Minimum Requirements</option>
+                                        <option value="option1">Option 1</option>
+                                        <option value="option2">Option 2</option>
+                                        <option value="option3">Option 3</option>
+                                    </select>
+                                </td>
+                                <td class="sub-requirement-cell"></td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
+                                </td>
+                            `;
+                            table.appendChild(newRow);
+                        }
+                
+                        function deleteRow(button) {
+                            const row = button.closest('tr');
+                            row.parentNode.removeChild(row);
+                        }
+                
+                        document.addEventListener('DOMContentLoaded', function() {
+                            addSubRequirementColumn();
+                        });
+                    </script>
+                    <div class="container mt-5">
+                        <button class="btn btn-success mb-3" onclick="addRow()">Add Row</button>
+                    
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>INDICATOR</th>
+                                    <th>RELEVANCE/DEFINITION</th>
+                                    <th class="min-requirements">MINIMUM REQUIREMENTS</th>
+                                    <th>Sub Requirements</th>
+                                    <th>Actions</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select class="form-select" name="indicator1">
+                                            <option value="">Select Indicator</option>
+                                            <option value="indicator1">Indicator 1</option>
+                                            <option value="indicator2">Indicator 2</option>
+                                            <option value="indicator3">Indicator 3</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-select" name="relevance1">
+                                            <option value="">Select Relevance/Definition</option>
+                                            <option value="relevance1">Relevance 1</option>
+                                            <option value="relevance2">Relevance 2</option>
+                                            <option value="relevance3">Relevance 3</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-select" name="requirement1" onchange="toggleSubRequirement(this, this.closest('tr'))">
+                                            <option value="">Select Minimum Requirements</option>
+                                            <option value="option1">Option 1</option>
+                                            <option value="option2">Option 2</option>
+                                            <option value="option3">Option 3</option>
+                                        </select>
+                                    </td>
+                                    <td class="sub-requirement-cell"></td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select class="form-select" name="indicator2">
+                                            <option value="">Select Indicator</option>
+                                            <option value="indicator1">Indicator 1</option>
+                                            <option value="indicator2">Indicator 2</option>
+                                            <option value="indicator3">Indicator 3</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-select" name="relevance2">
+                                            <option value="">Select Relevance/Definition</option>
+                                            <option value="relevance1">Relevance 1</option>
+                                            <option value="relevance2">Relevance 2</option>
+                                            <option value="relevance3">Relevance 3</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-select" name="requirement2" onchange="toggleSubRequirement(this, this.closest('tr'))">
+                                            <option value="">Select Minimum Requirements</option>
+                                            <option value="option1">Option 1</option>
+                                            <option value="option2">Option 2</option>
+                                            <option value="option3">Option 3</option>
+                                        </select>
+                                    </td>
+                                    <td class="sub-requirement-cell"></td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select class="form-select" name="indicator3">
+                                            <option value="">Select Indicator</option>
+                                            <option value="indicator1">Indicator 1</option>
+                                            <option value="indicator2">Indicator 2</option>
+                                            <option value="indicator3">Indicator 3</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-select" name="relevance3">
+                                            <option value="">Select Relevance/Definition</option>
+                                            <option value="relevance1">Relevance 1</option>
+                                            <option value="relevance2">Relevance 2</option>
+                                            <option value="relevance3">Relevance 3</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-select" name="requirement3" onchange="toggleSubRequirement(this, this.closest('tr'))">
+                                            <option value="">Select Minimum Requirements</option>
+                                            <option value="option1">Option 1</option>
+                                            <option value="option2">Option 2</option>
+                                            <option value="option3">Option 3</option>
+                                        </select>
+                                    </td>
+                                    <td class="sub-requirement-cell"></td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
-                
-
-                        
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
+                    <script>
+                        function addRow() {
+                            const table = document.querySelector('.table tbody');
+                            const newRow = document.createElement('tr');
+                            newRow.innerHTML = `
+                                <td>
+                                    <select class="form-select" name="indicatorNew">
+                                        <option value="">Select Indicator</option>
+                                        <option value="indicator1">Indicator 1</option>
+                                        <option value="indicator2">Indicator 2</option>
+                                        <option value="indicator3">Indicator 3</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="relevanceNew">
+                                        <option value="">Select Relevance/Definition</option>
+                                        <option value="relevance1">Relevance 1</option>
+                                        <option value="relevance2">Relevance 2</option>
+                                        <option value="relevance3">Relevance 3</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="requirementNew" onchange="toggleSubRequirement(this, this.closest('tr'))">
+                                        <option value="">Select Minimum Requirements</option>
+                                        <option value="option1">Option 1</option>
+                                        <option value="option2">Option 2</option>
+                                        <option value="option3">Option 3</option>
+                                    </select>
+                                </td>
+                                <td class="sub-requirement-cell"></td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
+                                </td>
+                            `;
+                            table.appendChild(newRow);
+                        }
+                    </script>
+                    
             <!-- End of Main Content -->
 
     <!-- Bootstrap core JavaScript-->

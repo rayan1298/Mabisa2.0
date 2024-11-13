@@ -11288,3 +11288,6 @@ body.sidebar-toggled footer.sticky-footer {
   border-top: 4px solid #000;
   pointer-events: none;
 }
+.min-requirements {
+  width: 100px; /* Adjust the width as needed */
+}
