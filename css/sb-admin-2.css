@@ -11291,3 +11291,6 @@ body.sidebar-toggled footer.sticky-footer {
 .min-requirements {
   width: 100px; /* Adjust the width as needed */
 }
+ .narrow-input {
+width: 80px; /* Adjust the width as needed */
+}

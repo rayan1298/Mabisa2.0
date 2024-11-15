@@ -380,7 +380,7 @@
                                 // Create a select element for sub-requirements
                                 subRequirementCell.innerHTML = `
                                     <select class="form-select" placeholder="Select Sub-requirement">
-                                        <option value="">Select Sub-requirement</option>
+                                        <option value="">No Sub-requirement</option>
                                         <option value="sub-option1">Sub Option 1</option>
                                         <option value="sub-option2">Sub Option 2</option>
                                         <option value="sub-option3">Sub Option 3</option>
@@ -389,23 +389,30 @@
                                 subRequirementCell.innerHTML = '';
                             }
                         }
-                
-                        function addSubRequirementColumn() {
-                            const table = document.querySelector('.table');
-                            const thead = table.querySelector('thead tr');
-                            const tbody = table.querySelector('tbody');
-                
-                        }
-                
+                    
                         function addRow() {
                             const table = document.querySelector('.table tbody');
                             const newRow = document.createElement('tr');
                             newRow.innerHTML = `
-                                <td>New Row, Cell 1</td>
-                                <td>New Row, Cell 2</td>
+                                <td>
+                                    <select class="form-select" name="indicatorNew">
+                                        <option value="">Select Indicator</option>
+                                        <option value="indicator1">Indicator 1</option>
+                                        <option value="indicator2">Indicator 2</option>
+                                        <option value="indicator3">Indicator 3</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="relevanceNew">
+                                        <option value="">Select Relevance/Definition</option>
+                                        <option value="relevance1">Relevance 1</option>
+                                        <option value="relevance2">Relevance 2</option>
+                                        <option value="relevance3">Relevance 3</option>
+                                    </select>
+                                </td>
                                 <td>
                                     <select class="form-select" name="requirementNew" onchange="toggleSubRequirement(this, this.closest('tr'))">
-                                        <option value="">Select Minimum Requirements</option>
+                                        <option value="">No Minimum Requirements</option>
                                         <option value="option1">Option 1</option>
                                         <option value="option2">Option 2</option>
                                         <option value="option3">Option 3</option>
@@ -413,21 +420,25 @@
                                 </td>
                                 <td class="sub-requirement-cell"></td>
                                 <td>
+                                    <input type="checkbox" name="movNew" />
+                                </td>
+                                <td>
                                     <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
                                 </td>
                             `;
                             table.appendChild(newRow);
                         }
-                
+                    
                         function deleteRow(button) {
                             const row = button.closest('tr');
                             row.parentNode.removeChild(row);
                         }
-                
+                    
                         document.addEventListener('DOMContentLoaded', function() {
-                            addSubRequirementColumn();
+                            // Initial setup if needed
                         });
                     </script>
+                    
                     <div class="container mt-5">
                         <button class="btn btn-success mb-3" onclick="addRow()">Add Row</button>
                     
@@ -438,7 +449,8 @@
                                     <th>RELEVANCE/DEFINITION</th>
                                     <th class="min-requirements">MINIMUM REQUIREMENTS</th>
                                     <th>Sub Requirements</th>
-                                    <th>Actions</th> 
+                                    <th>MOV's</th> <!-- New column header -->
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -461,13 +473,16 @@
                                     </td>
                                     <td>
                                         <select class="form-select" name="requirement1" onchange="toggleSubRequirement(this, this.closest('tr'))">
-                                            <option value="">Select Minimum Requirements</option>
+                                            <option value="">No Minimum Requirements</option>
                                             <option value="option1">Option 1</option>
                                             <option value="option2">Option 2</option>
                                             <option value="option3">Option 3</option>
                                         </select>
                                     </td>
                                     <td class="sub-requirement-cell"></td>
+                                    <td>
+                                        <input type="checkbox" name="mov1" />
+                                    </td>
                                     <td>
                                         <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
                                     </td>
@@ -491,13 +506,16 @@
                                     </td>
                                     <td>
                                         <select class="form-select" name="requirement2" onchange="toggleSubRequirement(this, this.closest('tr'))">
-                                            <option value="">Select Minimum Requirements</option>
+                                            <option value="">No Minimum Requirements</option>
                                             <option value="option1">Option 1</option>
                                             <option value="option2">Option 2</option>
                                             <option value="option3">Option 3</option>
                                         </select>
                                     </td>
                                     <td class="sub-requirement-cell"></td>
+                                    <td>
+                                        <input type="checkbox" name="mov2" />
+                                    </td>
                                     <td>
                                         <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
                                     </td>
@@ -521,7 +539,7 @@
                                     </td>
                                     <td>
                                         <select class="form-select" name="requirement3" onchange="toggleSubRequirement(this, this.closest('tr'))">
-                                            <option value="">Select Minimum Requirements</option>
+                                            <option value="">No Minimum Requirements</option>
                                             <option value="option1">Option 1</option>
                                             <option value="option2">Option 2</option>
                                             <option value="option3">Option 3</option>
@@ -529,51 +547,15 @@
                                     </td>
                                     <td class="sub-requirement-cell"></td>
                                     <td>
+                                        <input type="checkbox" name="mov3" />
+                                    </td>
+                                    <td>
                                         <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-
-                    <script>
-                        function addRow() {
-                            const table = document.querySelector('.table tbody');
-                            const newRow = document.createElement('tr');
-                            newRow.innerHTML = `
-                                <td>
-                                    <select class="form-select" name="indicatorNew">
-                                        <option value="">Select Indicator</option>
-                                        <option value="indicator1">Indicator 1</option>
-                                        <option value="indicator2">Indicator 2</option>
-                                        <option value="indicator3">Indicator 3</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <select class="form-select" name="relevanceNew">
-                                        <option value="">Select Relevance/Definition</option>
-                                        <option value="relevance1">Relevance 1</option>
-                                        <option value="relevance2">Relevance 2</option>
-                                        <option value="relevance3">Relevance 3</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <select class="form-select" name="requirementNew" onchange="toggleSubRequirement(this, this.closest('tr'))">
-                                        <option value="">Select Minimum Requirements</option>
-                                        <option value="option1">Option 1</option>
-                                        <option value="option2">Option 2</option>
-                                        <option value="option3">Option 3</option>
-                                    </select>
-                                </td>
-                                <td class="sub-requirement-cell"></td>
-                                <td>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
-                                </td>
-                            `;
-                            table.appendChild(newRow);
-                        }
-                    </script>
-                    
             <!-- End of Main Content -->
 
     <!-- Bootstrap core JavaScript-->

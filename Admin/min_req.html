@@ -330,27 +330,95 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Minimum Requirements</h1>
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">     
-                    </div>
+                            <div class="container mt-5"></div>                                                                  
+                         </div>
+                         </div>
                     <!-- Content Row -->
-                    <div class="row">
-
-
-                    </div>
-
-                             
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        
-                    </div>
-
                 
+                    <!-- Content Row -->
+                    
+                    <div class="container-fluid">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Indicator</th>
+                                    <th>Min Requirements Code</th>
+                                    <th>Description</th>
+                                    <th>Sub Requirements</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-light dropdown-toggle form-control border" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Select Indicator
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li><a class="dropdown-item" href="#" data-value="Indicator 1">Indicator 1</a></li>
+                                                <li><a class="dropdown-item" href="#" data-value="Indicator 2">Indicator 2</a></li>
+                                                <li><a class="dropdown-item" href="#" data-value="Indicator 3">Indicator 3</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td><input type="text" class="form-control" placeholder="Enter Min Requirements Code"></td>
+                                    <td><input type="text" class="form-control" placeholder="Enter Description"></td>
+                                    <td><input type="number" class="form-control narrow-input" placeholder="Enter number of Sub Requirements" min="0"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-light dropdown-toggle form-control border" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Select Indicator
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                                <li><a class="dropdown-item" href="#" data-value="Indicator 1">Indicator 1</a></li>
+                                                <li><a class="dropdown-item" href="#" data-value="Indicator 2">Indicator 2</a></li>
+                                                <li><a class="dropdown-item" href="#" data-value="Indicator 3">Indicator 3</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td><input type="text" class="form-control" placeholder="Enter Min Requirements Code"></td>
+                                    <td><input type="text" class="form-control" placeholder="Enter Description"></td>
+                                    <td><input type="number" class="form-control narrow-input" placeholder="Enter number of Sub Requirements" min="0"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-light dropdown-toggle form-control border" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Select Indicator
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                                <li><a class="dropdown-item" href="#" data-value="Indicator 1">Indicator 1</a></li>
+                                                <li><a class="dropdown-item" href="#" data-value="Indicator 2">Indicator 2</a></li>
+                                                <li><a class="dropdown-item" href="#" data-value="Indicator 3">Indicator 3</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td><input type="text" class="form-control" placeholder="Enter Min Requirements Code"></td>
+                                    <td><input type="text" class="form-control" placeholder="Enter Description"></td>
+                                    <td><input type="number" class="form-control narrow-input" placeholder="Enter number of Sub Requirements" min="0"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                        
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
+                    <!-- Bootstrap JS and dependencies -->
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+                    
+                    <script>
+                        $(document).ready(function() {
+                            $('.dropdown-item').on('click', function(e) {
+                                e.preventDefault(); // Prevent the default anchor behavior
+                                var selectedValue = $(this).data('value'); // Get the value from data attribute
+                                var dropdownButton = $(this).closest('.dropdown').find('.dropdown-toggle'); // Find the button
+                                dropdownButton.text(selectedValue); // Update the button text
+                            });
+                        });
+                    </script>
+                    
             <!-- End of Main Content -->
 
     <!-- Bootstrap core JavaScript-->
