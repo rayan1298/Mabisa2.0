@@ -185,13 +185,14 @@
                 <!--Header-->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Area Description</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Area Indicators</h1>
                     </div>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <table id="myTable" class="table table-striped">
                         <thead>
                             <tr>
+                                <th>Governance Code</th> <!-- Header for Governance Code -->
                                 <th>Area Number</th>
                                 <th>Description</th>
                                 <th>Actions</th>
@@ -210,6 +211,7 @@
                             // Add row button click event
                             $('#add-row-btn').on('click', function() {
                                 var newRow = '<tr>';
+                                newRow += '<td><select class="form-control"><option>Gov Code 1</option><option>Gov Code 2</option><option>Gov Code 3</option></select></td>'; // Dropdown for Governance Code
                                 newRow += '<td><select class="form-control"><option>Area 1</option><option>Area 2</option><option>Area 3</option></select></td>';
                                 newRow += '<td><input type="text" class="form-control" /></td>';
                                 newRow += '<td><button class="btn btn-danger delete-btn">Delete</button></td>';
