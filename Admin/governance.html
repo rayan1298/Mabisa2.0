@@ -335,62 +335,129 @@
                         </div>
                     </div>
                     <!-- Content Row -->
-                    <div class="row">
-                        <div class="container-fluid">
-                            <table class="table table-striped">
-                                <thead>
-                                  <tr>
-                                    <th>Column 1</th>
-                                    <th>Column 2</th>
-                                    <th>Column 3</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
+                    <div class="container mt-4">
+                        <button class="btn btn-primary mb-3" onclick="addNewRow()">Add New Row</button>
+                        <button class="btn btn-success mb-3" onclick="saveData()">Save</button> <!-- Save button -->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Category Code</th>
+                                    <th scope="col">Short Definition</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Actions</th> <!-- Added Actions column -->
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <tr>
                                     <td>
-                                      <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          Select Option
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                          <a class="dropdown-item" href="#">Option 1</a>
-                                          <a class="dropdown-item" href="#">Option 2</a>
-                                          <a class="dropdown-item" href="#">Option 3</a>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Select Category
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li><a class="dropdown-item" href="#" onclick="selectCategory(this, 'dropdownMenuButton1')">Category 1</a></li>
+                                                <li><a class="dropdown-item" href="#" onclick="selectCategory(this, 'dropdownMenuButton1')">Category 2</a></li>
+                                                <li><a class="dropdown-item" href="#" onclick="selectCategory(this, 'dropdownMenuButton1')">Category 3</a></li>
+                                            </ul>
                                         </div>
-                                      </div>
                                     </td>
+                                    <td><input type="text" class="form-control" placeholder="Enter Short Definition"></td>
+                                    <td><input type="text" class="form-control" placeholder="Enter Description"></td>
+                                    <td><button class="btn btn-danger" onclick="deleteRow(this)">Delete</button></td> <!-- Delete button -->
+                                </tr>
+                                <tr>
                                     <td>
-                                      <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          Select Option
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                          <a class="dropdown-item" href="#">Option 1</a>
-                                          <a class="dropdown-item" href="#">Option 2</a>
-                                          <a class="dropdown-item" href="#">Option 3</a>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Select Category
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                                <li><a class="dropdown-item" href="#" onclick="selectCategory(this, 'dropdownMenuButton2')">Category 1</a></li>
+                                                <li><a class="dropdown-item" href="#" onclick="selectCategory(this, 'dropdownMenuButton2')">Category 2</a></li>
+                                                <li><a class="dropdown-item" href="#" onclick="selectCategory(this, 'dropdownMenuButton2')">Category 3</a></li>
+                                            </ul>
                                         </div>
-                                      </div>
                                     </td>
-                                    <td>
-                                      <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          Select Option
+                                    <td><input type="text" class="form-control" placeholder="Enter Short Definition"></td>
+                                    <td><input type="text" class="form-control" placeholder="Enter Description"></td>
+                                    <td><button class="btn btn-danger" onclick="deleteRow(this)">Delete</button></td> <!-- Delete button -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <script>
+                        function selectCategory(element, buttonId) {
+                            // Get the selected category text
+                            var selectedText = element.textContent;
+                    
+                            // Update the button text with the selected category
+                            document.getElementById(buttonId).textContent = selectedText;
+                        }
+                    
+                        function addNewRow() {
+                            // Get the table body
+                            var tableBody = document.getElementById("tableBody");
+                    
+                            // Create a new row
+                            var newRow = document.createElement("tr");
+                    
+                            // Create the cells for the new row
+                            newRow.innerHTML = `
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton${tableBody.children.length + 1}" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Select Category
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                          <a class="dropdown-item" href="#">Option 1</a>
-                                          <a class="dropdown-item" href="#">Option 2</a>
-                                          <a class="dropdown-item" href="#">Option 3</a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                        </div>
-                     </div>     
-                <!-- /.container-fluid -->
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton${tableBody.children.length + 1}">
+                                            <li><a class="dropdown-item" href="#" onclick="selectCategory(this, 'dropdownMenuButton${tableBody.children.length + 1}')">Category 1</a></li>
+                                                                    <li><a class="dropdown-item" href="#" onclick="selectCategory(this, 'dropdownMenuButton${tableBody.children.length + 1}')">Category 2</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectCategory(this, 'dropdownMenuButton${tableBody.children.length + 1}')">Category 3</a></li>
+                    </ul>
+                </div>
+            </td>
+            <td><input type="text" class="form-control" placeholder="Enter Short Definition"></td>
+            <td><input type="text" class="form-control" placeholder="Enter Description"></td>
+            <td><button class="btn bt-danger" onclick="deleteRow(this)">Delete</button></td> <!-- Delete button -->
+        `;
 
-            </div>
+        // Append the new row to the table body
+        tableBody.appendChild(newRow);
+    }
+
+    function deleteRow(button) {
+        // Find the row that the button is in
+        var row = button.closest("tr");
+        
+        // Remove the row from the table
+        row.remove();
+    }
+
+    function saveData() {
+        // Get the table body
+        var tableBody = document.getElementById("tableBody");
+        var data = [];
+
+        // Loop through each row in the table body
+        for (var i = 0; i < tableBody.rows.length; i++) {
+            var row = tableBody.rows[i];
+            var categoryCode = row.querySelector('.dropdown-toggle').textContent; // Get the selected category
+            var shortDefinition = row.cells[1].querySelector('input').value; // Get the short definition
+            var description = row.cells[2].querySelector('input').value; // Get the description
+
+            // Push the data into the array
+            data.push({
+                categoryCode: categoryCode,
+                shortDefinition: shortDefinition,
+                description: description
+            });
+        }
+
+        // Log the data to the console (or you can send it to your server)
+        console.log("Saved Data:", data);
+        alert("Data saved successfully! Check console for details.");
+    }
+</script>
             <!-- End of Main Content -->
 
     <!-- Bootstrap core JavaScript-->
