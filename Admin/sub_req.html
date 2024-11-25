@@ -335,83 +335,143 @@
                  <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Sub Requirements Table</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Minimum Requirements</th>
-                                                    <th>Sub Requirements Code</th>
-                                                    <th>Sub Requirements Description</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <select class="form-control">
-                                                            <option>Requirement 1</option>
-                                                            <option>Requirement 2</option>
-                                                            <option>Requirement 3</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <select class="form-control">
-                                                            <option>SR001</option>
-                                                            <option>SR002</option>
-                                                            <option>SR003</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>Description for Sub Requirement 1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <select class="form-control">
-                                                            <option>Requirement 1</option>
-                                                            <option>Requirement 2</option>
-                                                            <option>Requirement 3</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <select class="form-control">
-                                                            <option>SR001</option>
-                                                            <option>SR002</option>
-                                                            <option>SR003</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>Description for Sub Requirement 2</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <select class="form-control">
-                                                            <option>Requirement 1</option>
-                                                            <option>Requirement 2</option>
-                                                            <option>Requirement 3</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <select class="form-control">
-                                                            <option>SR001</option>
-                                                            <option>SR002</option>
-                                                            <option>SR003</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>Description for Sub Requirement 3</td>
-                                                </tr>
-                                                <!-- Add more rows as needed -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                            <button id="addRow" class="btn btn-primary mb-3">Add Row</button>
+                            <button id="saveData" class="btn btn-success mb-3">Save</button> <!-- Save button -->
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Minimum Requirements</th>
+                                            <th>Sub Requirements Code</th>
+                                            <th>Sub Requirements Description</th>
+                                            <th>Action</th> <!-- Add an Action column -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <select class="form-control">
+                                                    <option>Requirement 1</option>
+                                                    <option>Requirement 2</option>
+                                                    <option>Requirement 3</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select class="form-control">
+                                                    <option>SR001</option>
+                                                    <option>SR002</option>
+                                                    <option>SR003</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control">
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger deleteRow">Delete</button> <!-- Delete button -->
+                                            </td>
+                                        </tr>
+                                        <!-- Repeat for other rows -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- /.container-fluid -->
+                
+                <script>
+                    document.getElementById('addRow').addEventListener('click', function() {
+                        // Get the table body
+                        var tableBody = document.querySelector('#dataTable tbody');
+                        
+                        // Create a new row
+                        var newRow = document.createElement('tr');
+                        
+                        // Create cells for the new row
+                        newRow.innerHTML = `
+                            <td>
+                                <select class="form-control">
+                                    <option>Requirement 1</option>
+                                    <option>Requirement 2</option>
+                                    <option>Requirement 3</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control">
+                                    <option>SR001</option>
+                                    <option>SR002</option>
+                                    <option>SR003</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control">
+                            </td>
+                            <td>
+                                <button class="btn btn-danger deleteRow">Delete</button> <!-- Delete button -->
+                            </td>
+                        `;
+                        
+                        // Append the new row to the table body
+                        tableBody.appendChild(newRow);
+                    });
+                
+                    // Event delegation for delete buttons
+                    document.querySelector('#dataTable tbody').addEventListener('click', function(e) {
+                        if (e.target.classList.contains('deleteRow')) {
+                            // Delete the row
+                            var row = e.target.closest('tr');
+                            row.parentNode.removeChild(row);
+                        }
+                    });
+                
+                    // Save button functionality
+                    document.getElementById('saveData').addEventListener('click', function() {
+                        var tableData = [];
+                        var rows = document.querySelectorAll('#dataTable tbody tr');
 
+                        rows.forEach(function(row) {
+                            var requirement = row.querySelector('select:nth-child(1)').value;
+                            var subRequirementCode = row.querySelector('select:nth-child(2)').value;
+                            var description = row.querySelector('input').value;
+
+                            if (requirement && subRequirementCode && description) {
+                                tableData.push({
+                                    requirement: requirement,
+                                    subRequirementCode: subRequirementCode,
+                                    description: description
+                                });
+                            } else {
+                                alert('Please fill in all fields before saving.');
+                            }
+                        });
+
+                        if (tableData.length > 0) {
+                            console.log("Saved Data:", tableData);
+                            
+                            // Implementing AJAX call using fetch
+                            fetch('YOUR_SERVER_ENDPOINT', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(tableData)
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.json();
+                                }
+                                throw new Error('Network response was not ok.');
+                            })
+                            .then(data => {
+                                console.log('Success:', data);
+                                alert('The data of the table was saved successfully!'); // Updated alert message
+                            })
+                            .catch((error) => {
+                                console.error('Error:', error);
+                                alert('There was an error saving the data.');
+                            });
+                        }
+                    });
+                </script>
             </div>
         </div>
             <!-- End of Main Content -->
