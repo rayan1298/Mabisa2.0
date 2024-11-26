@@ -328,91 +328,207 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Create Criteria</h1>
+                        <h1 class="h3 mb-0 text-gray-800">User Access Management</h1>
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <div class="container mt-5">                                                                   
                             </div>
                          </div>
                         </div>
-                        <script>
-                            function selectGovernance(option) {
-                              document.getElementById('dropdownMenuButton').textContent = option;
-                            }
-                          </script>
-                       
+                  
                     <!-- Content Row -->
-                    <div class="row">
-                    <form>
-                    <div class="form-group">
-                       
+                    <div class="container mt-5 text-end"> <!-- Added text-start for left alignment -->
+                        <div class="dropdown d-inline-block">
+                            <span class="ms-2">User  Access:</span> <!-- Added text beside the button -->
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="userAccessDropdown1" data-bs-toggle="dropdown" aria-expanded="false" onclick="toggleActive(this)">
+                                User Access
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="userAccessDropdown1">
+                                <li><a class="dropdown-item" href="#" onclick="selectOption(this)">Add User</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectOption(this)">Manage Users</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectOption(this)">User  Roles</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectOption(this)">User  Permissions</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectOption(this)">View User Activity</a></li>
+                            </ul>
+                        </div>
                     </div>
-                   <!-- Save Criteria -->
-             <!-- Button to open the modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Open Modal</button>
+            
+                    
+                    <script>
+                        function toggleActive(button) {
+                            // Toggle active class on the dropdown button
+                            button.classList.toggle('active');
+                        }
+                    
+                        function selectOption(item) {
+                            // Get the dropdown button
+                            const dropdownButton = item.closest('.dropdown').querySelector('.dropdown-toggle');
+                    
+                            // Update the button text to the selected option
+                            dropdownButton.textContent = item.textContent;
+                    
+                            // Remove active class from the button when an option is selected
+                            dropdownButton.classList.remove('active');
+                    
+                            // Optionally, you can close the dropdown after selection
+                            const dropdown = bootstrap.Dropdown.getInstance(dropdownButton);
+                            dropdown.hide();
+                        }
+                    </script>
 
-            <!-- The Modal --> 
-                <div class="modal fade" id="myModal">
-                     <div class="modal-dialog">
-                        <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                        <h4 class="modal-title">Modal Title</h4>
-                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                 </div>
-      
-                 <!-- Modal Body -->
-                 <div class="modal-body">
-                  <!-- Your modal content here -->
-                     <p>This is the modal body.</p>
+                    <div class="container-fluid mt-5 text-end"> <!-- Added text-start for left alignment -->
+                        <div class="dropdown d-inline-block">
+                            <span class="ms-2">Module:</span> <!-- Added text beside the button -->
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="moduleDropdown" data-bs-toggle="dropdown" aria-expanded="false" onclick="toggleActive(this)">
+                                Select Module
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="moduleDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="selectOption(this)">Module 1</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectOption(this)">Module 2</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectOption(this)">Module 3</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectOption(this)">Module 4</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectOption(this)">Module 5</a></li>
+                            </ul>
+                        </div>
                     </div>
-      
-                 <!-- Modal Footer -->
-                <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#saveModal">Save</button>
+
+                    <script>
+                        function toggleActive(button) {
+                            // Toggle active class on the dropdown button
+                            button.classList.toggle('active');
+                        }
+                    
+                        function selectOption(item) {
+                            // Get the dropdown button
+                            const dropdownButton = item.closest('.dropdown').querySelector('.dropdown-toggle');
+                    
+                            // Update the button text to the selected option
+                            dropdownButton.textContent = item.textContent;
+                    
+                            // Remove active class from the button when an option is selected
+                            dropdownButton.classList.remove('active');
+                    
+                            // Optionally, you can close the dropdown after selection
+                            const dropdown = bootstrap.Dropdown.getInstance(dropdownButton);
+                            dropdown.hide();
+                        }
+                    </script>
+
+                     <!-- Page Heading -->
+                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Available Forms</h1>
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <div class="container mt-5">                                                                   
+                            </div>
+                         </div>
+                        </div>
+                    <!-- Content Row -->
+                    <style>
+                        /* CSS to narrow the first column */
+                        .column1 {
+                            width: 150px; /* Set the width as desired */
+                            text-align: center; /* Center align the checkbox */
+                        }
+                    </style>
+                    <script>
+                        function toggleSelectAll(source) {
+                            // Select only checkboxes within the table
+                            const checkboxes = document.querySelectorAll('table input[type="checkbox"]');
+                            checkboxes.forEach(checkbox => {
+                                checkbox.checked = source.checked;
+                            });
+                        }
+                    </script>
+                </head>
+                <body>
+                    <div class="container mt-5 text-start">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="column1">
+                                        <input type="checkbox" onclick="toggleSelectAll(this)"> Select All
+                                    </th>
+                                    <th scope="col">Code</th>
+                                    <th scope="col">Descriptions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="narrow-column"><input type="checkbox" name="row1" value="1"></td>
+                                    <td>Data 1.2</td>
+                                    <td>Data 1.3</td>
+                                </tr>
+                                <tr>
+                                    <td class="narrow-column"><input type="checkbox" name="row2" value="2"></td>
+                                    <td>Data 2.2</td>
+                                    <td>Data 2.3</td>
+                                </tr>
+                                <tr>
+                                    <td class="narrow-column"><input type="checkbox" name="row3" value="3"></td>
+                                    <td>Data 3.2</td>
+                                    <td>Data 3.3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            
+             <!-- Page Heading -->
+             <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Permissions</h1>
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <div class="container mt-5">                                                                   
+                    </div>
                  </div>
                 </div>
-             </div>
-        </div>
-
-                <!-- The Save Modal -->
-                    <div class="modal fade" id="saveModal">
-                    <div class="modal-dialog">
-                     <div class="modal-content">
-                 <!-- Modal Header -->
-                      <div class="modal-header">
-                       <h4 class="modal-title">Save Successful</h4>
-                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      </div>
-      
-                    <!-- Modal Body -->
-                 <div class="modal-body">
-                      <p>Saved successfully!</p>
+            <!--Content Row-->
+            <div class="align-items-center justify-content-between mb-4">
+                <div class="row">
+                    <div class="col text-center" style="padding: 0px;"> <!-- Adjusted padding -->
+                        <input type="checkbox" id="checkbox1" class="form-check-input">
+                        <label for="checkbox1" class="form-check-label">View</label>
                     </div>
-               </div>
-            </div>
-        </div>
-           
-                    <!-- Content Row -->
-                    <div class="row">
-
-
+                    <div class="col text-center" style="padding: 0px;"> 
+                        <input type="checkbox" id="checkbox2" class="form-check-input">
+                        <label for="checkbox2" class="form-check-label">Add</label>
                     </div>
-
-                             
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        
+                    <div class="col text-center" style="padding: 0px;"> 
+                        <input type="checkbox" id="checkbox3" class="form-check-input">
+                        <label for="checkbox3" class="form-check-label">Edit</label>
                     </div>
-
-                
-
-                        
+                    <div class="col text-center" style="padding: 0px;"> 
+                        <input type="checkbox" id="checkbox4" class="form-check-input">
+                        <label for="checkbox4" class="form-check-label">Delete</label>
+                    </div>
+                    <div class="col text-center" style="padding: 0px;"> 
+                        <input type="checkbox" id="checkbox5" class="form-check-input">
+                        <label for="checkbox5" class="form-check-label">Print</label>
+                    </div>
                 </div>
-                <!-- /.container-fluid -->
-
+                <div class="row mt-4">
+                    <div class="align-items-center justify-content-betweens">
+                        <button id="saveButton" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
             </div>
+            
+            <script>
+                document.getElementById('saveButton').addEventListener('click', function() {
+                    const checkboxes = [
+                        { id: 'checkbox1', label: 'View' },
+                        { id: 'checkbox2', label: 'Add' },
+                        { id: 'checkbox3', label: 'Edit' },
+                        { id: 'checkbox4', label: 'Delete' },
+                        { id: 'checkbox5', label: 'Print' }
+                    ];
+            
+                    const selectedOptions = checkboxes
+                        .filter(checkbox => document.getElementById(checkbox.id).checked)
+                        .map(checkbox => checkbox.label);
+            
+                    // Here you can handle the saving logic, e.g., sending the selectedOptions to a server
+                    console.log('Selected Options:', selectedOptions);
+                    alert('Saved: ' + selectedOptions.join(', '));
+                });
+            </script>
             <!-- End of Main Content -->
 
     <!-- Bootstrap core JavaScript-->
@@ -421,7 +537,6 @@
 
     <!-- Core plugin JavaScript-->
     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
 
@@ -434,7 +549,4 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
 </body>
-
-</body>
-
 </html>
