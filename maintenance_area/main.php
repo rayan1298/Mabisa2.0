@@ -84,12 +84,12 @@ session_start();
                         <a class="collapse-item" href="main.php">Area</a>
                         <a class="collapse-item" href="../maintenance_area_description/index_area_desf.php">Area Description</a>
                         <a class="collapse-item" href="../maintenance_area_indicators/index_indicatorf.php">Area Indicators</a>
-                        <a class="collapse-item" href="min_req.html">Minimum Requirements</a>
+                        <!-- <a class="collapse-item" href="min_req.html">Minimum Requirements</a>
                         <a class="collapse-item" href="sub_req.html">Sub-Requirements</a>
                         <a class="collapse-item" href="category.html">Category</a>
                         <a class="collapse-item" href="version.html">Version</a>
                         <a class="collapse-item" href="docu_source.html">Document Source</a>
-                        <a class="collapse-item" href="governance.html">Governance</a>
+                        <a class="collapse-item" href="governance.html">Governance</a> -->
                     </div>
                 </div>
             </li>
