@@ -163,7 +163,7 @@ if ($maintenance_area_description_result && mysqli_num_rows($maintenance_area_de
 
             <!-- Nav Item - Criteria -->
             <li class="nav-item active">
-                <a class="nav-link collapsed" href="Criteria.html">
+                <a class="nav-link collapsed" href="index_sc.php">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Set-Up Criteria</span>
                 </a>
@@ -184,9 +184,9 @@ if ($maintenance_area_description_result && mysqli_num_rows($maintenance_area_de
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Settings</h6>
-                        <a class="collapse-item" href="area.html">Area</a>
-                        <a class="collapse-item" href="area_description.html">Area Description</a>
-                        <a class="collapse-item" href="area_indicator.html">Area Indicators</a>
+                        <a class="collapse-item" href="../maintenance_area/main.php">Area</a>
+                        <a class="collapse-item" href="../maintenance_area_description/index_area_desf.php">Area Description</a>
+                        <a class="collapse-item" href="../maintenance_area_indicators/index_indicatorf.php">Area Indicators</a>
                         <a class="collapse-item" href="min_req.html">Minimum Requirements</a>
                         <a class="collapse-item" href="sub_req.html">Sub-Requirements</a>
                         <a class="collapse-item" href="category.html">Category</a>
