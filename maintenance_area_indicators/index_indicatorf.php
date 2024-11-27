@@ -59,7 +59,7 @@ session_start();
 
             <!-- Nav Item - Criteria -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="Criteria.html">
+                <a class="nav-link collapsed" href="../setup_criteria/index_sc.php">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Set-Up Criteria</span>
                 </a>
@@ -80,16 +80,16 @@ session_start();
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Settings</h6>
-                        <a class="collapse-item" href="area.html">Area</a>
-                        <a class="collapse-item" href="area_description.html">Area Description</a>
-                        <a class="collapse-item" href="area_indicator.html">Area Indicators</a>
-                        <a class="collapse-item" href="min_req.html">Minimum Requirements</a>
+                        <a class="collapse-item" href="../maintenance_area/main.php">Area</a>
+                        <a class="collapse-item" href="../maintenance_area_description/index_area_desf.php">Area Description</a>
+                        <a class="collapse-item" href="index_indicatorf.php">Area Indicators</a>
+                        <!-- <a class="collapse-item" href="min_req.html">Minimum Requirements</a>
                         <a class="collapse-item" href="sub_req.html">Sub-Requirements</a>
                         <a class="collapse-item" href="category.html">Category</a>
                         <a class="collapse-item" href="version.html">Version</a>
                         <a class="collapse-item" href="docu_source.html">Document Source</a>
                         <a class="collapse-item" href="governance.html">Governance</a>
-                    </div>
+                    </div> -->
                 </div>
             </li>
 
