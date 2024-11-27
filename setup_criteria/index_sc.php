@@ -474,7 +474,7 @@ if ($maintenance_area_description_result && mysqli_num_rows($maintenance_area_de
                             <td><?php echo $row['documentary_requirements']; ?></td>
                             <td><?php echo $row['data_source']; ?></td>
                             <td>
-                                <a href="edit.php?edit_id=<?php echo $row['keyctr'] ?>">Edit</a> |
+                                <a href="editf.php?edit_id=<?php echo $row['keyctr'] ?>">Edit</a> |
                                 <a href="script.php?delete_id=<?php echo $row['keyctr'] ?>">Delete</a>
                             </td>
                         </tr>
