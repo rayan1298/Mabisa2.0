@@ -339,91 +339,186 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Create Criteria</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Maintenance Province</h1>
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <div class="container mt-5">                                                                   
                             </div>
                          </div>
                         </div>
-                        <script>
-                            function selectGovernance(option) {
-                              document.getElementById('dropdownMenuButton').textContent = option;
-                            }
-                          </script>
-                       
                     <!-- Content Row -->
-                    <div class="row">
-                    <form>
-                    <div class="form-group">
-                       
-                    </div>
-                   <!-- Save Criteria -->
-             <!-- Button to open the modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                                    <!-- Add New Entry Button -->
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addEntryModal">
+                    Add New Entry
+                </button>
 
-            <!-- The Modal --> 
-                <div class="modal fade" id="myModal">
-                     <div class="modal-dialog">
+                <!-- Add Entry Modal -->
+                <div class="modal fade" id="addEntryModal" tabindex="-1" role="dialog" aria-labelledby="addEntryModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                        <h4 class="modal-title">Modal Title</h4>
-                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                 </div>
-      
-                 <!-- Modal Body -->
-                 <div class="modal-body">
-                  <!-- Your modal content here -->
-                     <p>This is the modal body.</p>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addEntryModalLabel">Add New Entry</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="addEntryForm">
+                                    <div class="form-group">
+                                        <label for="provinceId">Province ID</label>
+                                        <input type="text" class="form-control" id="provinceId" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <input type="text" class="form-control" id="description" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="country">Country</label>
+                                        <input type="text" class="form-control" id="country" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="trail">Trail</label>
+                                        <input type="text" class="form-control" id="trail" required>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="saveEntryBtn">Save Entry</button>
+                            </div>
+                        </div>
                     </div>
-      
-                 <!-- Modal Footer -->
-                <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#saveModal">Save</button>
-                 </div>
                 </div>
-             </div>
-        </div>
-
-                <!-- The Save Modal -->
-                    <div class="modal fade" id="saveModal">
-                    <div class="modal-dialog">
-                     <div class="modal-content">
-                 <!-- Modal Header -->
-                      <div class="modal-header">
-                       <h4 class="modal-title">Save Successful</h4>
-                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      </div>
-      
-                    <!-- Modal Body -->
-                 <div class="modal-body">
-                      <p>Saved successfully!</p>
-                    </div>
-               </div>
-            </div>
-        </div>
-           
-                    <!-- Content Row -->
-                    <div class="row">
-
-
-                    </div>
-
-                             
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        
-                    </div>
-
-                
-
-                        
+                <div class="row">
+                    <p></p>
                 </div>
-                <!-- /.container-fluid -->
-
-            </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Province ID</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Country</th>
+                                <th scope="col">Trail</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cell 1</td>
+                                <td>Cell 2</td>
+                                <td>Cell 3</td>
+                                <td>Cell 4</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editEntryModal">
+                                        Edit
+                                    </button>
+                                    <button type="button" class="btn btn-danger delete-btn">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Cell 6</td>
+                                <td>Cell 7</td>
+                                <td>Cell 8</td>
+                                <td>Cell 9</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editEntryModal">
+                                        Edit
+                                    </button>
+                                    <button type="button" class="btn btn-danger delete-btn">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- Modal for Editing Entry -->
+                    <div class="modal fade" id="editEntryModal" tabindex="-1" role="dialog" aria-labelledby="editEntryModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editEntryModalLabel">Edit Entry</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="editEntryForm">
+                                        <div class="form-group">
+                                            <label for="editColumn1">Province ID</label>
+                                            <input type="text" class="form-control" id="editColumn1" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editColumn2">Province Name</label>
+                                            <input type="text" class="form-control" id="editColumn2" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editColumn3">Country</label>
+                                            <select class="form-control" id="editColumn3" required>
+                                                <option value="" disabled selected>Select a country</option>
+                                                <option value="USA">United States</option>
+                                                <option value="CAN">Canada</option>
+                                                <option value="GBR">United Kingdom</option>
+                                                <option value="AUS">Australia</option>
+                                                <option value="IND">India</option>
+                                                <!-- Add more countries as needed -->
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="saveEdit">Save Changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        // Add event listener to the Edit button
+                        document.querySelectorAll('button[data-target="#editEntryModal"]').forEach(function(button) {
+                            button.addEventListener('click', function() {
+                                // Get the row data
+                                var row = button.parentNode.parentNode;
+                                var col1 = row.cells[0].textContent;
+                                var col2 = row.cells[1].textContent;
+                                var col3 = row.cells[2].textContent;
+                    
+                                // Fill the edit form with the row data
+                                document.getElementById('editColumn1').value = col1;
+                                document.getElementById('editColumn2').value = col2;
+                                document.getElementById('editColumn3').value = col3;
+                            });
+                        });
+                    
+                        // Add event listener to the Save Changes button
+                        document.getElementById('saveEdit').addEventListener('click', function() {
+                            // Get the values from the edit form
+                            var col1 = document.getElementById('editColumn1').value;
+                            var col2 = document.getElementById('editColumn2').value;
+                            var col3 = document.getElementById('editColumn3').value;
+                    
+                            // Update the row data
+                            var row = document.querySelector('tr.active');
+                            row.cells[0].textContent = col1;
+                            row.cells[1].textContent = col2;
+                            row.cells[2].textContent = col3;
+                    
+                            // Close the modal
+                            $('#editEntryModal').modal('hide');
+                        });
+                    
+                        // Add event listener to the Delete button
+                        document.querySelectorAll('.delete-btn').forEach(function(button) {
+                            button.addEventListener('click', function() {
+                                // Get the row to be deleted
+                                var row = button.parentNode.parentNode;
+                                // Remove the row from the table
+                                row.parentNode.removeChild(row);
+                            });
+                        });
+                    </script>
             <!-- End of Main Content -->
 
     <!-- Bootstrap core JavaScript-->
