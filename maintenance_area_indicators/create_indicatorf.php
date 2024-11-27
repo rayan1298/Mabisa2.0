@@ -1,7 +1,38 @@
 <?php
-// db.php should include the connection to your database
 include 'db.php';
 session_start();
+
+// Fetch governance codes for the dropdown using DISTINCT
+$governance_stmt = $pdo->query("SELECT DISTINCT keyctr, cat_code FROM maintenance_governance");
+$governance_codes = $governance_stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch description keys for the dropdown using DISTINCT
+$description_stmt = $pdo->query("SELECT DISTINCT keyctr, description FROM maintenance_area_description");
+$description_keys = $description_stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Retrieve form data
+    $governance_code = $_POST['governance_code']; // This is now the foreign key
+    $desc_keyctr = $_POST['desc_keyctr'];
+    $area_description = $_POST['area_description'];
+    $indicator_code = $_POST['indicator_code'];
+    $indicator_description = $_POST['indicator_description'];
+    $relevance_def = $_POST['relevance_def'];
+    $min_requirement = isset($_POST['min_requirement']) ? 1 : 0;
+    $trail = 'Created at ' . date('Y-m-d H:i:s');
+
+    // Insert the new indicator into the database
+    $stmt = $pdo->prepare("INSERT INTO maintenance_area_indicators (governance_code, desc_keyctr, area_description, indicator_code, indicator_description, relevance_def, min_requirement, trail) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+
+    if ($stmt->execute([$governance_code, $desc_keyctr, $area_description, $indicator_code, $indicator_description, $relevance_def, $min_requirement, $trail])) {
+        $_SESSION['success'] = "Indicator entry created successfully!";
+        header("Location: index_indicatorf.php");
+        exit;
+    } else {
+        $_SESSION['error'] = "Failed to create indicator entry.";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +64,7 @@ session_start();
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index_main.html">
                 <div class="sidebar-brand-icon">
                     <i><img src="../Logo.png" height="60px"></i>
                 </div>
@@ -45,7 +76,7 @@ session_start();
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="../index.html">
+                <a class="nav-link" href="../index_main.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -60,7 +91,7 @@ session_start();
 
             <!-- Nav Item - Criteria -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../setup_criteria/index_sc.php">
+                <a class="nav-link collapsed" href="Criteria.html">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Set-Up Criteria</span>
                 </a>
@@ -81,15 +112,15 @@ session_start();
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Settings</h6>
-                        <a class="collapse-item" href="main.php">Area</a>
-                        <a class="collapse-item" href="../maintenance_area_description/index_area_desf.php">Area Description</a>
-                        <a class="collapse-item" href="../maintenance_area_indicators/index_indicatorf.php">Area Indicators</a>
-                        <!-- <a class="collapse-item" href="min_req.html">Minimum Requirements</a>
+                        <a class="collapse-item" href="area.html">Area</a>
+                        <a class="collapse-item" href="area_description.html">Area Description</a>
+                        <a class="collapse-item" href="area_indicator.html">Area Indicators</a>
+                        <a class="collapse-item" href="min_req.html">Minimum Requirements</a>
                         <a class="collapse-item" href="sub_req.html">Sub-Requirements</a>
                         <a class="collapse-item" href="category.html">Category</a>
                         <a class="collapse-item" href="version.html">Version</a>
                         <a class="collapse-item" href="docu_source.html">Document Source</a>
-                        <a class="collapse-item" href="governance.html">Governance</a> -->
+                        <a class="collapse-item" href="governance.html">Governance</a>
                     </div>
                 </div>
             </li>
@@ -178,7 +209,7 @@ session_start();
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="../index.html" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -187,47 +218,49 @@ session_start();
                     </ul>
                 </nav>
                 <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <?php
-                if (isset($_SESSION['success'])) {
-                    echo "<p style='color: green;'>{$_SESSION['success']}</p>";
-                    unset($_SESSION['success']);
-                }
-                ?>
+                <!--Header-->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Assign Area</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Area Indicators</h1>
                     </div>
-                    <a href="create_area.php" class="btn btn-primary">Add New Area</a>
-                         <table id="myTable" class="table table-striped">
-                        <tr>
-                            <!-- <th>ID</th> -->
-                            <th>Description</th>
-                            <th>Trail</th>
-                            <th>Actions</th>
-                        </tr>
+                <!-- Begin Page Content -->
+                <form action="" method="post">
+    <label for="governance_code">Governance Code:</label>
+    <select name="governance_code" id="governance_code" required>
+        <option value="">Select Governance Code</option>
+        <?php foreach ($governance_codes as $governance): ?>
+            <option value="<?= htmlspecialchars($governance['keyctr']) ?>"><?= htmlspecialchars($governance['cat_code']) ?></option>
+        <?php endforeach; ?>
+    </select><br><br>
 
-                        <?php
-                        // Fetch areas from the database
-                        $stmt = $pdo->query("SELECT * FROM maintenance_area");
-                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo "<tr>
-                                    <!--<td>{$row['keyctr']}</td>-->
-                                    <td>{$row['description']}</td>
-                                    <td>{$row['trail']}</td>
-                                    <td>
-                                        <a href='edit_area.php?keyctr={$row['keyctr']}'>Edit</a> | 
-                                        <a href='delete_area.php?keyctr={$row['keyctr']}' onclick='return confirm(\"Are you sure?\")'>Delete</a>
-                                    </td>
-                                </tr>";
-                        }
-                        ?>
-                    </table>
+    <label for="desc_keyctr">Description Key:</label>
+    <select name="desc_keyctr" id="desc_keyctr" required>
+        <option value="">Select Description Key</option>
+        <?php foreach ($description_keys as $description): ?>
+            <option value="<?= htmlspecialchars($description['keyctr']) ?>"><?= htmlspecialchars($description['description']) ?></option>
+        <?php endforeach; ?>
+    </select><br><br>
+
+    <label for="area_description">Area Description:</label>
+    <input type="text" name="area_description" id="area_description" required><br><br>
+
+    <label for="indicator_code">Indicator Code:</label>
+    <input type="text" name="indicator_code" id="indicator_code" required><br><br>
+
+    <label for="indicator_description">Indicator Description:</label>
+    <input type="text" name="indicator_description" id="indicator_description" required><br><br>
+
+    <label for="relevance_def">Relevance Definition:</label>
+    <input type="text" name="relevance_def" id="relevance_def" required><br><br>
+
+    <label>Mininum Requirements:</label>
+    <input type="checkbox" name="min_requirement" value="1"><br><br>
+
+    <button type="submit">Add Indicator</button>
+   
+</form>
                 </div>
-            </div>
-        </div>
-    </div>
+               <!--End Page Content-->
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>

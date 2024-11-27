@@ -1,7 +1,21 @@
 <?php
-// db.php should include the connection to your database
 include 'db.php';
 session_start();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $description = $_POST['description'];
+    $trail = 'Created at ' . date('Y-m-d H:i:s');
+
+    // Insert into the database
+    $sql = "INSERT INTO maintenance_area_description (description, trail) VALUES (:description, :trail)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['description' => $description, 'trail' => $trail]);
+
+    // Set success message and redirect
+    $_SESSION['success'] = "Description created successfully!";
+    header('Location: index_area_desf.php');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +47,7 @@ session_start();
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index_main.html">
                 <div class="sidebar-brand-icon">
                     <i><img src="../Logo.png" height="60px"></i>
                 </div>
@@ -45,7 +59,7 @@ session_start();
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="../index.html">
+                <a class="nav-link" href="../index_main.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -60,7 +74,7 @@ session_start();
 
             <!-- Nav Item - Criteria -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../setup_criteria/index_sc.php">
+                <a class="nav-link collapsed" href="Criteria.html">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Set-Up Criteria</span>
                 </a>
@@ -81,15 +95,15 @@ session_start();
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Settings</h6>
-                        <a class="collapse-item" href="main.php">Area</a>
-                        <a class="collapse-item" href="../maintenance_area_description/index_area_desf.php">Area Description</a>
-                        <a class="collapse-item" href="../maintenance_area_indicators/index_indicatorf.php">Area Indicators</a>
-                        <!-- <a class="collapse-item" href="min_req.html">Minimum Requirements</a>
+                        <a class="collapse-item" href="area.html">Area</a>
+                        <a class="collapse-item" href="area_description.html">Area Description</a>
+                        <a class="collapse-item" href="area_indicator.html">Area Indicators</a>
+                        <a class="collapse-item" href="min_req.html">Minimum Requirements</a>
                         <a class="collapse-item" href="sub_req.html">Sub-Requirements</a>
                         <a class="collapse-item" href="category.html">Category</a>
                         <a class="collapse-item" href="version.html">Version</a>
                         <a class="collapse-item" href="docu_source.html">Document Source</a>
-                        <a class="collapse-item" href="governance.html">Governance</a> -->
+                        <a class="collapse-item" href="governance.html">Governance</a>
                     </div>
                 </div>
             </li>
@@ -178,7 +192,7 @@ session_start();
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="../index.html" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -187,47 +201,23 @@ session_start();
                     </ul>
                 </nav>
                 <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <?php
-                if (isset($_SESSION['success'])) {
-                    echo "<p style='color: green;'>{$_SESSION['success']}</p>";
-                    unset($_SESSION['success']);
-                }
-                ?>
+                <!--Header-->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Assign Area</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Add Area Description</h1>
                     </div>
-                    <a href="create_area.php" class="btn btn-primary">Add New Area</a>
-                         <table id="myTable" class="table table-striped">
-                        <tr>
-                            <!-- <th>ID</th> -->
-                            <th>Description</th>
-                            <th>Trail</th>
-                            <th>Actions</th>
-                        </tr>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                <form method="POST" action="create_desf.php">
+                        <label>Description:</label><br>
+                        <textarea name="description" required></textarea><br><br>
 
-                        <?php
-                        // Fetch areas from the database
-                        $stmt = $pdo->query("SELECT * FROM maintenance_area");
-                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo "<tr>
-                                    <!--<td>{$row['keyctr']}</td>-->
-                                    <td>{$row['description']}</td>
-                                    <td>{$row['trail']}</td>
-                                    <td>
-                                        <a href='edit_area.php?keyctr={$row['keyctr']}'>Edit</a> | 
-                                        <a href='delete_area.php?keyctr={$row['keyctr']}' onclick='return confirm(\"Are you sure?\")'>Delete</a>
-                                    </td>
-                                </tr>";
-                        }
-                        ?>
-                    </table>
+                        <button type="submit" class="btn btn-primary">Add Description</button>
+                    </form>
+
+
                 </div>
-            </div>
-        </div>
-    </div>
+               <!--End Page Content-->
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>

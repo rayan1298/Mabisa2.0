@@ -1,3 +1,110 @@
+<!-- Script connection -->
+<?php
+include 'script.php';
+
+$data = [];
+$maintenance_area_description_query = "
+    SELECT
+        maintenance_governance.*,
+        maintenance_category.description category,
+        maintenance_area.description area_description
+    FROM
+        `maintenance_governance`
+    LEFT JOIN maintenance_category ON maintenance_governance.cat_code = maintenance_category.code
+    LEFT JOIN maintenance_area ON maintenance_governance.area_keyctr = maintenance_area.keyctr;
+    
+    
+    ;
+";
+
+$maintenance_area_description_result = mysqli_query($conn, $maintenance_area_description_query);
+
+
+
+if ($maintenance_area_description_result && mysqli_num_rows($maintenance_area_description_result) > 0) {
+    // Fetch and display each row with var_dump
+    while ($maintenance_area_description_row = mysqli_fetch_assoc($maintenance_area_description_result)) {
+
+        // maintenance_governance
+        $maintenance_governance_query = "SELECT * FROM `maintenance_governance` where desc_keyctr = '$maintenance_area_description_row[keyctr]'";
+        $maintenance_governance_result = mysqli_query($conn, $maintenance_governance_query);
+
+        if ($maintenance_governance_result && mysqli_num_rows($maintenance_governance_result) > 0) {
+            while ($maintenance_governance_row = mysqli_fetch_assoc($maintenance_governance_result)) {
+
+                $query2_data = $maintenance_governance_row;
+
+                // maintenance_area_indicators
+                $maintenance_area_indicators_query = "SELECT * FROM `maintenance_area_indicators` where governance_code = '$maintenance_governance_row[keyctr]'";
+                $maintenance_area_indicators_result = mysqli_query($conn, $maintenance_area_indicators_query);
+
+
+
+                if ($maintenance_area_indicators_result && mysqli_num_rows($maintenance_area_indicators_result) > 0) {
+                    while ($maintenance_area_indicators_row = mysqli_fetch_assoc($maintenance_area_indicators_result)) {
+
+                        $query3_data = $maintenance_area_indicators_row;
+
+
+                        // maintenance_criteria_setup
+                        $maintenance_criteria_setup_query = "
+                            SELECT 
+                            
+                                msc.keyctr AS keyctr,
+                                mam.description,
+                                mam.reqs_code,
+                                msc.movdocs_reqs documentary_requirements,
+                                mds.srcdesc data_source
+
+
+                            FROM `maintenance_criteria_setup` msc 
+                            left JOIN maintenance_criteria_version AS mcv
+                            ON
+                                msc.version_keyctr = mcv.keyctr
+                            left JOIN maintenance_area_mininumreqs AS mam
+                            ON
+                                msc.minreqs_keyctr = mam.keyctr
+                            LEFT JOIN maintenance_document_source AS mds
+                            ON
+                                msc.data_source = mds.keyctr 
+                            
+                            where msc.indicator_keyctr  = '$maintenance_area_indicators_row[keyctr]'
+                            order by mam.reqs_code asc
+                            ";
+                        $maintenance_criteria_setup_result = mysqli_query($conn, $maintenance_criteria_setup_query);
+
+
+                        if ($maintenance_criteria_setup_result && mysqli_num_rows($maintenance_criteria_setup_result) > 0) {
+                            while ($maintenance_criteria_setup_row = mysqli_fetch_assoc($maintenance_criteria_setup_result)) {
+
+                                $data[$maintenance_area_description_row['category']. " " . $maintenance_area_description_row['area_description']  . ": " . $maintenance_area_description_row['description']][] = array(
+                                    'keyctr' => $maintenance_criteria_setup_row['keyctr'],
+                                    'indicator_code' => $maintenance_area_indicators_row['indicator_code'],
+                                    'indicator_description' => $maintenance_area_indicators_row['indicator_description'],
+                                    'relevance_definition' => $maintenance_area_indicators_row['relevance_def'],
+                                    'reqs_code' => $maintenance_criteria_setup_row['reqs_code'],
+                                    'documentary_requirements' => $maintenance_criteria_setup_row['documentary_requirements'],
+                                    'description' => $maintenance_criteria_setup_row['description'],
+                                    'data_source' => $maintenance_criteria_setup_row['data_source'],
+
+
+                                );
+
+                            }
+                        }
+
+
+                    }
+                }
+
+
+            }
+        }
+
+    }
+}
+?>
+<!-- end of srcipt connection -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,14 +116,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>MABISA - Administrator</title>
+    <title>MABISA - Admin</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 
 <body id="page-top">
@@ -28,9 +136,9 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index_main.html">
                 <div class="sidebar-brand-icon">
-                    <i><img src="Logo.png" height="60 px"></i>
+                    <i><img src="../Logo.png" height="60 px"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">MABISA</div>
             </a>
@@ -39,8 +147,8 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+            <li class="nav-item">
+                <a class="nav-link" href="../index_main.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -54,8 +162,8 @@
             </div>
 
             <!-- Nav Item - Criteria -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="setup_criteria/index_sc.php">
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="index_sc.php">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Set-Up Criteria</span>
                 </a>
@@ -66,7 +174,7 @@
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
-               <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
@@ -76,15 +184,15 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Settings</h6>
-                        <a class="collapse-item" href="maintenance_area/main.php">Area</a>
-                        <a class="collapse-item" href="maintenance_area_description/index_area_desf.php">Area Description</a>
-                        <a class="collapse-item" href="maintenance_area_indicators/index_indicatorf.php">Area Indicators</a>
-                        <!-- <a class="collapse-item" href="Admin/min_req.html">Minimum Requirements</a>
-                        <a class="collapse-item" href="Admin/sub_req.html">Sub-Requirements</a>
-                        <a class="collapse-item" href="Admin/category.html">Category</a>
-                        <a class="collapse-item" href="Admin/version.html">Version</a>
-                        <a class="collapse-item" href="Admin/docu_source.html">Document Source</a>
-                        <a class="collapse-item" href="Admin/governance.html">Governance</a> -->
+                        <a class="collapse-item" href="../maintenance_area/main.php">Area</a>
+                        <a class="collapse-item" href="../maintenance_area_description/index_area_desf.php">Area Description</a>
+                        <a class="collapse-item" href="../maintenance_area_indicators/index_indicatorf.php">Area Indicators</a>
+                        <!-- <a class="collapse-item" href="min_req.html">Minimum Requirements</a>
+                        <a class="collapse-item" href="sub_req.html">Sub-Requirements</a>
+                        <a class="collapse-item" href="category.html">Category</a>
+                        <a class="collapse-item" href="version.html">Version</a>
+                        <a class="collapse-item" href="docu_source.html">Document Source</a>
+                        <a class="collapse-item" href="governance.html">Governance</a>s -->
                     </div>
                 </div>
             </li>
@@ -99,25 +207,25 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="Admin/bar_assessment.html">
+                <a class="nav-link" href="bar_assessment.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Barangay Assessment</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="Admin/location.html">
+                <a class="nav-link" href="location.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Location</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="Admin/users.html">
+                <a class="nav-link" href="users.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Users</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="Admin/reports.html">
+                <a class="nav-link" href="reports.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Generate Report</span></a>
             </li>
@@ -150,13 +258,7 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
+                        
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
@@ -242,7 +344,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
+                                        <img class="rounded-circle" src="../img/undraw_profile_1.svg"
                                             alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
@@ -254,7 +356,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
+                                        <img class="rounded-circle" src="../img/undraw_profile_2.svg"
                                             alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
@@ -266,7 +368,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
+                                        <img class="rounded-circle" src="../img/undraw_profile_3.svg"
                                             alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
@@ -298,9 +400,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                    src="../img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -318,236 +420,104 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="../index_main.html" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
                             </div>
                         </li>
-
                     </ul>
-
                 </nav>
                 <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+                 <!-- Begin Page Content -->
+                 <div class="container">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-auto me-auto">
+                    <h4>Maintenance Criteria Setup</h4>
+                </div>
+                <div class="col-auto"> <a href="add.php" class="btn btn-primary">Add</a>
+                </div>
+            </div>
+        </div>
+        <?php
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                    </div>
+        foreach ($data as $key => $rows) { ?>
+            <div class="text-center">
+                <h5>
+                    <?php echo $key; ?>
+                </h5>
+            </div>
 
-                    <!-- Content Row -->
-                    <div class="row">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Indicator</th>
+                        <th>Relevant/Definition </th>
+                        <th>Minimum Requirements</th>
+                        <th>Documentary Requirements/MOVs</th>
+                        <th>Data Source</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($rows as $row) {
 
-                        <!-- In progress Barangays -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Barangay In Progress</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Completed Barangay -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Completed Barangay</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                   
-
-                        <!-- Registered Barangay -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Registered Barangay</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Barangay Progress</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-area">
-                                <canvas id="myAreaChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row"></div>
-                    <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">Area Code</th>
-                            <th scope="col">Area Name</th>                   
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Financial Administration and Sustainability</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Disaster Preparedness</td>
+                        ?>
+                        <tr>
                            
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Safety Peace and Order</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
+                            <td><?php echo $row['indicator_code']." ".  $row['indicator_description']; ?></td>
+                            <td><?php echo $row['relevance_definition']; ?></td>
+                            <td><?php echo $row['reqs_code'] ." ". $row['description']; ?></td>
+                            <td><?php echo $row['documentary_requirements']; ?></td>
+                            <td><?php echo $row['data_source']; ?></td>
+                            <td>
+                                <a href="editf.php?edit_id=<?php echo $row['keyctr'] ?>">Edit</a> |
+                                <a href="script.php?delete_id=<?php echo $row['keyctr'] ?>">Delete</a>
+                            </td>
+                        </tr>
 
-                        </div>
-            </div>
+                        <?php
+                    } ?>
 
-            <!-- History Logs -->
-             <div class="row">
-            <div class="card">
-                <div class="card-header">
-                  <h5 class="card-title">Logs</h5>
-                </div>
-                <div class="card-body">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th scope="col">User  ID</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Action</th>
-                        <th scope="col">Date/Time</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>john.doe</td>
-                        <td>Logged in</td>
-                        <td>2024-03-01 14:30:00</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>jane.doe</td>
-                        <td>Viewed dashboard</td>
-                        <td>2024-03-01 14:35:00</td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>john.doe</td>
-                        <td>Updated profile</td>
-                        <td>2024-03-01 14:40:00</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>admin</td>
-                        <td>Deleted user</td>
-                        <td>2024-03-01 14:45:00</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div> 
-            </div>
 
+
+                </tbody>
+            </table>
+
+            <br />
+            <br />
+
+
+            <?php
+        }
+
+        ?>
+
+    </div>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; MABISA 2024</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="index.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="../js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="../vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="../js/demo/chart-area-demo.js"></script>
+    <script src="../js/demo/chart-pie-demo.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+</body>
 
 </body>
 

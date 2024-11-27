@@ -1,7 +1,53 @@
 <?php
-// db.php should include the connection to your database
 include 'db.php';
 session_start();
+
+// Fetch the existing record if an indicator_code is provided
+if (isset($_GET['indicator_code'])) {
+    $indicator_code = $_GET['indicator_code'];
+    
+    // Prepare and execute the fetch statement
+    $stmt = $pdo->prepare("SELECT * FROM maintenance_area_indicators WHERE indicator_code = ?");
+    $stmt->execute([$indicator_code]);
+    $indicator = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    // Check if the indicator exists
+    if (!$indicator) {
+        $_SESSION['error'] = "Indicator entry not found.";
+        header("Location: index_indicatorf.php");
+        exit;
+    }
+}
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $governance_code = $_POST['governance_code'];
+    $desc_keyctr = $_POST['desc_keyctr'];
+    $area_description = $_POST['area_description'];
+    $indicator_description = $_POST['indicator_description'];
+    $relevance_def = $_POST['relevance_def'];
+    $min_requirement = isset($_POST['min_requirement']) ? 1 : 0; // Checkbox handling
+    $trail = 'Updated at ' . date('Y-m-d H:i:s');
+
+    // Prepare and execute the update statement
+    $stmt = $pdo->prepare("UPDATE maintenance_area_indicators SET 
+        governance_code = ?, 
+        desc_keyctr = ?, 
+        area_description = ?, 
+        indicator_description = ?, 
+        relevance_def = ?, 
+        min_requirement = ?, 
+        trail = ? 
+        WHERE indicator_code = ?");
+    
+    if ($stmt->execute([$governance_code, $desc_keyctr, $area_description, $indicator_description, $relevance_def, $min_requirement, $trail, $indicator_code])) {
+        $_SESSION['success'] = "Indicator entry updated successfully!";
+        header("Location: index_indicatorf.php");
+        exit;
+    } else {
+        $_SESSION['error'] = "Failed to update indicator entry.";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +79,7 @@ session_start();
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index_main.html">
                 <div class="sidebar-brand-icon">
                     <i><img src="../Logo.png" height="60px"></i>
                 </div>
@@ -45,7 +91,7 @@ session_start();
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="../index.html">
+                <a class="nav-link" href="../index_main.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -81,7 +127,7 @@ session_start();
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Settings</h6>
-                        <a class="collapse-item" href="main.php">Area</a>
+                        <a class="collapse-item" href="../maintenance_area/main.php">Area</a>
                         <a class="collapse-item" href="../maintenance_area_description/index_area_desf.php">Area Description</a>
                         <a class="collapse-item" href="../maintenance_area_indicators/index_indicatorf.php">Area Indicators</a>
                         <!-- <a class="collapse-item" href="min_req.html">Minimum Requirements</a>
@@ -178,7 +224,7 @@ session_start();
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="../index.html" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -187,47 +233,41 @@ session_start();
                     </ul>
                 </nav>
                 <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <?php
-                if (isset($_SESSION['success'])) {
-                    echo "<p style='color: green;'>{$_SESSION['success']}</p>";
-                    unset($_SESSION['success']);
-                }
-                ?>
+                <!--Header-->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Assign Area</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Area Indicators</h1>
                     </div>
-                    <a href="create_area.php" class="btn btn-primary">Add New Area</a>
-                         <table id="myTable" class="table table-striped">
-                        <tr>
-                            <!-- <th>ID</th> -->
-                            <th>Description</th>
-                            <th>Trail</th>
-                            <th>Actions</th>
-                        </tr>
+                <!-- Begin Page Content -->
+                <form method="post">
+    <label for="governance_code">Governance Code:</label>
+    <input type="text" name="governance_code" value="<?php echo htmlspecialchars($indicator['governance_code']); ?>" required>
+    <br>
 
-                        <?php
-                        // Fetch areas from the database
-                        $stmt = $pdo->query("SELECT * FROM maintenance_area");
-                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo "<tr>
-                                    <!--<td>{$row['keyctr']}</td>-->
-                                    <td>{$row['description']}</td>
-                                    <td>{$row['trail']}</td>
-                                    <td>
-                                        <a href='edit_area.php?keyctr={$row['keyctr']}'>Edit</a> | 
-                                        <a href='delete_area.php?keyctr={$row['keyctr']}' onclick='return confirm(\"Are you sure?\")'>Delete</a>
-                                    </td>
-                                </tr>";
-                        }
-                        ?>
-                    </table>
+    <label for="desc_keyctr">Description Key:</label>
+    <input type="text" name="desc_keyctr" value="<?php echo htmlspecialchars($indicator['desc_keyctr']); ?>" required>
+    <br>
+
+    <label for="area_description">Area Description:</label>
+    <input type="text" name="area_description" value="<?php echo htmlspecialchars($indicator['area_description']); ?>" required>
+    <br>
+
+    <label for="indicator_description">Indicator Description:</label>
+    <input type="text" name="indicator_description" value="<?php echo htmlspecialchars($indicator['indicator_description']); ?>" required>
+    <br>
+
+    <label for="relevance_def">Relevance Definition:</label>
+    <input type="text" name="relevance_def" value="<?php echo htmlspecialchars($indicator['relevance_def']); ?>" required>
+    <br>
+
+    <label for="min_requirement">Minimum Requirement:</label>
+    <input type="checkbox" name="min_requirement" value="1" <?php echo $indicator['min_requirement'] ? 'checked' : ''; ?> >
+    <br>
+
+    <button type="submit">Update Indicator Entry</button>
+</form>
                 </div>
-            </div>
-        </div>
-    </div>
+               <!--End Page Content-->
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
