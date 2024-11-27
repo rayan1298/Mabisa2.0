@@ -424,10 +424,10 @@ $maintenance_document_source_result = mysqli_query($conn, $maintenance_document_
                     ?>
                 </select>
             </div>
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label class="form-label">Trail</label>
                 <textarea class="form-control" name="trail" rows="3"></textarea>
-            </div>
+            </div> -->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button type="submit" class="btn btn-primary btn-block" name="add_maintenance_criteria_setup" ">Submit</button>
             </div>

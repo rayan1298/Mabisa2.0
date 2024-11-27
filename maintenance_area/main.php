@@ -224,45 +224,6 @@ session_start();
                         }
                         ?>
                     </table>
-                    <!-- <table id="myTable" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Area Number</th>
-                                <th>Description</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-body"> -->
-                            <!-- rows will be added here dynamically -->
-                        <!-- </tbody>
-                    </table> -->
-                    <!-- <button id="add-row-btn" class="btn btn-primary">Add</button>
-                    <button id="save-btn" class="btn btn-success">Save</button>
-                    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
-                    <!-- <script>
-                        $(document).ready(function() {
-                            // Add row button click event
-                            $('#add-row-btn').on('click', function() {
-                                var newRow = '<tr>';
-                                newRow += '<td><input type="number" min="0" class="form-control" /></td>';
-                                newRow += '<td><input type="text" class="form-control" /></td>';
-                                newRow += '<td><button class="btn btn-danger delete-btn">Delete</button></td>';
-                                newRow += '</tr>';
-                                $('#table-body').append(newRow);
-                            });
-                        
-                            // Save button click event
-                            $('#save-btn').on('click', function() {
-                                // TO DO: implement save functionality
-                                alert('Save button clicked!');
-                            });
-                        
-                            // Delete button click event
-                            $(document).on('click', '.delete-btn', function() {
-                                $(this).closest('tr').remove();
-                            });
-                        });
-                    </script> -->
                 </div>
             </div>
         </div>
