@@ -346,33 +346,140 @@
                          </div>
                         </div>
                     <!-- Content Row -->
-                    <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">City ID</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Province ID</th>
-                            <th scope="col">Trail</th>
-                            <th scope="col">Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Cell 1</td>
-                            <td>Cell 2</td>
-                            <td>Cell 3</td>
-                            <td>Cell 4</td>
-                            <td>Cell 5</td>
-                          </tr>
-                          <tr>
-                            <td>Cell 6</td>
-                            <td>Cell 7</td>
-                            <td>Cell 8</td>
-                            <td>Cell 9</td>
-                            <td>Cell 10</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <div class="container mt-5">
+                        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#addModal">Add New City</button>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">City ID</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Province ID</th>
+                                    <th scope="col">Trail</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <tr>
+                                    <td>Cell 1</td>
+                                    <td>Cell 2</td>
+                                    <td>Cell 3</td>
+                                    <td>Cell 4</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm" onclick="editRow(this)">Edit</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cell 6</td>
+                                    <td>Cell 7</td>
+                                    <td>Cell 8</td>
+                                    <td>Cell 9</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm" onclick="editRow(this)">Edit</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                
+                                    <!-- Add New Entry Modal -->
+                <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addModalLabel">Add New Entry</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="addForm">
+                                    <div class="form-group">
+                                        <label for="newCityId">City ID</label>
+                                        <input type="text" class="form-control" id="newCityId" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newDescription">Description</label>
+                                        <input type="text" class="form-control" id="newDescription" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newProvinceId">Province ID</label>
+                                        <select class="form-control" id="newProvinceId" required>
+                                            <option value="" disabled selected>Select Province</option>
+                                            <option value="1">Province 1</option>
+                                            <option value="2">Province 2</option>
+                                            <option value="3">Province 3</option>
+                                            <option value="4">Province 4</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newTrail">Trail</label>
+                                        <input type="text" class="form-control" id="newTrail" required>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="addNewEntry()">Add Entry</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                    <script>
+                        let currentRow;
+                    
+                        function editRow(button) {
+                            currentRow = button.parentNode.parentNode;
+                            document.getElementById('cityId').value = currentRow.cells[0].innerText;
+                            document.getElementById('description').value = currentRow.cells[1].innerText;
+                            document.getElementById('provinceId').value = currentRow.cells[2].innerText;
+                            document.getElementById('trail').value = currentRow.cells[3].innerText;
+                            $('#editModal').modal('show');
+                        }
+                    
+                        function saveChanges() {
+                            currentRow.cells[0].innerText = document.getElementById('cityId').value;
+                            currentRow.cells[1].innerText = document.getElementById('description').value;
+                            currentRow.cells[2].innerText = document.getElementById('provinceId').value;
+                            currentRow.cells[3].innerText = document.getElementBy('trail').value;
+                            $('#editModal').modal('hide');
+                        }
+                    
+                        function deleteRow(button) {
+                            const row = button.parentNode.parentNode;
+                            row.parentNode.removeChild(row);
+                        }
+                    
+                        function addNewEntry() {
+                            const newCityId = document.getElementById('newCityId').value;
+                            const newDescription = document.getElementById('newDescription').value;
+                            const newProvinceId = document.getElementById('newProvinceId').value;
+                            const newTrail = document.getElementById('newTrail').value;
+                    
+                            const tableBody = document.getElementById('tableBody');
+                            const newRow = tableBody.insertRow();
+                    
+                            newRow.innerHTML = `
+                                <td>${newCityId}</td>
+                                <td>${newDescription}</td>
+                                <td>${newProvinceId}</td>
+                                <td>${newTrail}</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" onclick="editRow(this)">Edit</button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
+                                </td>
+                            `;
+                    
+                            $('#addModal').modal('hide');
+                            document.getElementById('addForm').reset();
+                        }
+                    </script>
+
+                    
 
             <!-- End of Main Content -->
 
