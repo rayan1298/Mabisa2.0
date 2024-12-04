@@ -339,91 +339,216 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Create Criteria</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Maintenance Barangay</h1>
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <div class="container mt-5">                                                                   
                             </div>
                          </div>
                         </div>
+            
+                    <!-- Content Row -->
+                    <div class="row">
+                        <div class="row">
+                            <div class="container mt-5">
+                                <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addEntryModal">
+                                    Add New Entry
+                                </button>
+                        <!-- Modal for adding new entry -->
+                        <div class="modal fade" id="addEntryModal" tabindex="-1" role="dialog" aria-labelledby="addEntryModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="addEntryModalLabel">Add New Entry</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Form for new entry -->
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="barangayId">Barangay ID</label>
+                                                <input type="text" class="form-control" id="barangayId" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description">Description</label>
+                                                <input type="text" class="form-control" id="description" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cityId">City ID</label>
+                                                <input type="text" class="form-control" id="cityId" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="trail">Trail</label>
+                                                <input type="text" class="form-control" id="trail" required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save Entry</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container mt-5">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Barangay ID</th>
+                                            <th>Description</th>
+                                            <th>City ID</th>
+                                            <th>Trail</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>Example Description 1</td>
+                                            <td>101</td>
+                                            <td>Trail A</td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editEntryModal" onclick="populateEditModal(1, 'Example Description 1', 101, 'Trail A')">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-danger" onclick="deleteRow(this)">
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>2</th>
+                                            <td>Example Description 2</td>
+                                            <td>102</td>
+                                            <td>Trail B</td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editEntryModal" onclick="populateEditModal(2, 'Example Description 2', 102, 'Trail B')">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-danger" onclick="deleteRow(this)">
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>3</th>
+                                            <td>Example Description 3</td>
+                                            <td>103</td>
+                                            <td>Trail C</td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editEntryModal" onclick="populateEditModal(3, 'Example Description 3', 103, 'Trail C')">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-danger" onclick="deleteRow(this)">
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>4</th>
+                                            <td>Example Description 4</td>
+                                            <td>104</td>
+                                            <td>Trail D</td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editEntryModal" onclick="populateEditModal(4, 'Example Description 4', 104, 'Trail D')">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-danger" onclick="deleteRow(this)">
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Modal for editing entry -->
+                        <div class="modal fade" id="editEntryModal" tabindex="-1" role="dialog" aria-labelledby="editEntryModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editEntryModalLabel">Edit Entry</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Form for editing entry -->
+                                        <form id="editForm">
+                                            <div class="form-group">
+                                                <label for="editBarangayId">Barangay ID</label>
+                                                <input type="text" class="form-control" id="editBarangayId" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="editDescription">Description</label>
+                                                <input type="text" class="form-control" id="editDescription" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="editCityId">City ID</label>
+                                                <input type="text" class="form-control" id="editCityId" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="editTrail">Trail</label>
+                                                <input type="text" class="form-control" id="editTrail" required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" onclick="saveEdit()">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <script>
-                            function selectGovernance(option) {
-                              document.getElementById('dropdownMenuButton').textContent = option;
-                            }
-                          </script>
-                       
-                    <!-- Content Row -->
-                    <div class="row">
-                    <form>
-                    <div class="form-group">
-                       
-                    </div>
-                   <!-- Save Criteria -->
-             <!-- Button to open the modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                    function populateEditModal(barangayId, description, cityId, trail) {
+                        document.getElementById('editBarangayId').value = barangayId;
+                        document.getElementById('editDescription').value = description;
+                        document.getElementById('editCityId').value = cityId;
+                        document.getElementById('editTrail').value = trail;
+                    }
 
-            <!-- The Modal --> 
-                <div class="modal fade" id="myModal">
-                     <div class="modal-dialog">
-                        <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                        <h4 class="modal-title">Modal Title</h4>
-                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                 </div>
-      
-                 <!-- Modal Body -->
-                 <div class="modal-body">
-                  <!-- Your modal content here -->
-                     <p>This is the modal body.</p>
-                    </div>
-      
-                 <!-- Modal Footer -->
-                <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#saveModal">Save</button>
-                 </div>
-                </div>
-             </div>
-        </div>
+                    function saveEdit() {
+                        // Get the values from the form
+                        const barangayId = document.getElementById('editBarangayId').value;
+                        const description = document.getElementById('editDescription').value;
+                        const cityId = document.getElementById('editCityId').value;
+                        const trail = document.getElementById('editTrail').value;
 
-                <!-- The Save Modal -->
-                    <div class="modal fade" id="saveModal">
-                    <div class="modal-dialog">
-                     <div class="modal-content">
-                 <!-- Modal Header -->
-                      <div class="modal-header">
-                       <h4 class="modal-title">Save Successful</h4>
-                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      </div>
-      
-                    <!-- Modal Body -->
-                 <div class="modal-body">
-                      <p>Saved successfully!</p>
-                    </div>
-               </div>
-            </div>
-        </div>
-           
-                    <!-- Content Row -->
-                    <div class="row">
+                        // Here, you would typically send the updated data to your server
+                        // For demonstration, we'll just log it to the console
+                        console.log("Updated Entry:", {
+                            barangayId,
+                            description,
+                            cityId,
+                            trail
+                        });
 
+                        // Close the modal
+                        $('#editEntryModal').modal('hide');
 
-                    </div>
+                        // Optionally, you can also update the table row directly here
+                        // This would require you to keep track of which row is being edited
+                        // For simplicity, we will not include that logic here.
+                    }
 
-                             
-                    <!-- Content Row -->
-                    <div class="row">
+                    function deleteRow(button) {
+                        // Confirm deletion
+                        if (confirm("Are you sure you want to delete this entry?")) {
+                            // Find the row to delete
+                            const row = button.closest("tr");
+                            // Remove the row from the table
+                            row.remove();
+                        }
+                    }
+                </script>
 
-                        
-                    </div>
-
-                
-
-                        
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
+                     </div>
             <!-- End of Main Content -->
 
     <!-- Bootstrap core JavaScript-->
